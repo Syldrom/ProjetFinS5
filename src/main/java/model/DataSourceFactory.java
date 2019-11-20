@@ -24,7 +24,7 @@ public class DataSourceFactory {
 		switch (TYPE) {
 			case server: // Derby mode serveur, doit être démarré indépendamment
 				org.apache.derby.jdbc.ClientDataSource ds = new org.apache.derby.jdbc.ClientDataSource();
-				ds.setDatabaseName("sample");
+				ds.setDatabaseName("comptoirs");
 				ds.setUser("app");
 				ds.setPassword("app");
 				// The host on which Network Server is running
@@ -36,7 +36,7 @@ public class DataSourceFactory {
 			default: // Derby mode embedded, démarré automatiquement avec l'application
 				org.apache.derby.jdbc.EmbeddedDataSource es = new org.apache.derby.jdbc.EmbeddedDataSource();
 				es.setCreateDatabase("create");
-				es.setDatabaseName("embedded_sample");
+				es.setDatabaseName("embedded_comptoirs");
 				result = es;
 		}
 

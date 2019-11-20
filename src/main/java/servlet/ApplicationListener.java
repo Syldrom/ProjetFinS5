@@ -57,8 +57,9 @@ public class ApplicationListener implements ServletContextListener {
 		Logger.getLogger("DiscountEditor").log(Level.INFO, "Creating databse from SQL script");
 		try {
 			Connection connection = DataSourceFactory.getDataSource().getConnection();
-			int result = ij.runScript(connection, this.getClass().getResourceAsStream("export.sql"), "UTF-8", System.out, "UTF-8");
-			if (result == 0) {
+			int result = ij.runScript(connection, this.getClass().getResourceAsStream("comptoirs_shema_derby.sql"), "UTF-8", System.out, "UTF-8");
+			int result_b =ij.runScript(connection,this.getClass().getResourceAsStream("comptoirs_data.sql"), "UTF-8", System.out, "UTF-8");
+                        if (result == 0 || result_b ==0) {
 				Logger.getLogger("DiscountEditor").log(Level.INFO, "Database succesfully created");
 			} else {
 				Logger.getLogger("DiscountEditor").log(Level.SEVERE, "Errors creating database");

@@ -18,7 +18,7 @@ import org.apache.derby.tools.ij;
 /**
  * Web application lifecycle listener, initialise la base de données au démarrage de l'application si nécessaire
  */
-// @WebListener()
+@WebListener()
 public class ApplicationListener implements ServletContextListener {
 
 	@Override
@@ -40,7 +40,7 @@ public class ApplicationListener implements ServletContextListener {
 		try {
 			List<DiscountCode> allCodes = dao.allCodes();
 			Logger.getLogger("DiscountEditor").log(Level.INFO, "Database already exists");
-			result = true;
+			result = false;
 		} catch (SQLException ex) {
 			Logger.getLogger("DiscountEditor").log(Level.INFO, "Database does not exist");
 		}
@@ -57,7 +57,7 @@ public class ApplicationListener implements ServletContextListener {
 		Logger.getLogger("DiscountEditor").log(Level.INFO, "Creating databse from SQL script");
 		try {
 			Connection connection = DataSourceFactory.getDataSource().getConnection();
-			int result = ij.runScript(connection, this.getClass().getResourceAsStream("comptoirs_shema_derby.sql"), "UTF-8", System.out, "UTF-8");
+			int result = ij.runScript(connection, this.getClass().getResourceAsStream("comptoirs_schema_derby.sql"), "UTF-8", System.out, "UTF-8");
 			int result_b =ij.runScript(connection,this.getClass().getResourceAsStream("comptoirs_data.sql"), "UTF-8", System.out, "UTF-8");
                         if (result == 0 || result_b ==0) {
 				Logger.getLogger("DiscountEditor").log(Level.INFO, "Database succesfully created");

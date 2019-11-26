@@ -33,26 +33,9 @@ public class DiscountEditorController extends HttpServlet {
 		String action = request.getParameter("action");
 		action = (action == null) ? "" : action; // Pour le switch qui n'aime pas les null
 		String code = request.getParameter("code");
-		String taux = request.getParameter("taux");
 		try {
 			DAO dao = new DAO(DataSourceFactory.getDataSource());
-			request.setAttribute("codes", dao.allCodes());			
-			switch (action) {
-				case "ADD": // Requête d'ajout (vient du formulaire de saisie)
-					dao.addDiscountCode(code, Float.valueOf(taux));
-					request.setAttribute("message", "Code " + code + " Ajouté");
-					request.setAttribute("codes", dao.allCodes());								
-					break;
-				case "DELETE": // Requête de suppression (vient du lien hypertexte)
-					try {
-						dao.deleteDiscountCode(code);
-						request.setAttribute("message", "Code " + code + " Supprimé");
-						request.setAttribute("codes", dao.allCodes());								
-					} catch (SQLIntegrityConstraintViolationException e) {
-						request.setAttribute("message", "Impossible de supprimer " + code + ", ce code est utilisé.");
-					}
-					break;
-			}
+			request.setAttribute("numeros", dao.numCommandes());			
 		} catch (Exception ex) {
 			Logger.getLogger("discountEditor").log(Level.SEVERE, "Action en erreur", ex);
 			request.setAttribute("message", ex.getMessage());

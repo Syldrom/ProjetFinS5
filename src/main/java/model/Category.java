@@ -9,12 +9,12 @@ package model;
  *
  * @author pedago
  */
-public class Categorie {
+public class Category {
     private int code;
     private String libelle;
     private String description;
     
-    public Categorie(int c, String l, String d){
+    public Category(int c, String l, String d){
         this.code=c;
         this.libelle=l;
         this.description=d;

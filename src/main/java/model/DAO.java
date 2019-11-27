@@ -63,14 +63,16 @@ public class DAO {
                         
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
-                                int code = rs.getInt("Code");
-                                String description = rs.getString("Description");                                   
-                                Category c = new Category(code,description);
+                                int code = rs.getInt("CODE");
+                                String name = rs.getString("LIBELLE");
+                                String description = rs.getString("DESCRIPTION");                                   
+                                Category c = new Category(code,name,description);
 				result.add(c);
 			}
                     return result;
 		}
         }
+
         public List<Integer> numCommandes() throws SQLException {
 
 		List<Integer> result = new LinkedList<>();

@@ -34,6 +34,20 @@ public class Product {
         this.disponibilite=dispo;
     }
     
+    public void setStock(int s){
+        this.unites_en_stock=s;
+    }
     
+    public void decremStock(int s){
+        this.unites_en_stock-=s;
+    }
+    
+    public void setIndisponible(){
+        this.disponibilite=1;
+    }
+    
+    public void setDisponible(){
+        this.disponibilite=0;
+    }
     
 }

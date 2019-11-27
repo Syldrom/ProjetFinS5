@@ -21,6 +21,7 @@ public class Product {
     private int niveau_de_reappro;
     private int disponibilite;
     
+    //
     public Product(int r,String name,int fourni,int cate,String qte,float prix,int stock,int commandees,int reappro,int dispo){
         this.ref=r;
         this.nom=name;
@@ -34,6 +35,7 @@ public class Product {
         this.disponibilite=dispo;
     }
     
+    //TRANSFORMATEURS
     public void setStock(int s){
         this.unites_en_stock=s;
     }
@@ -50,4 +52,47 @@ public class Product {
         this.disponibilite=0;
     }
     
+    public boolean isDisponible(){
+        return this.disponibilite==0;
+    }
+    
+    public int getRef(){
+        return this.ref;
+    }
+    
+    public String getName(){
+        return this.nom;
+    }
+    
+    public int getFournisseur(){
+        return this.fournisseur;
+    }
+    
+    public int getCategory(){
+        return this.categorie;
+    }
+    
+    public String getQuantity(){
+        return this.quantite;
+    }
+    
+    public float getPrice(){
+        return this.prix_uni;
+    }
+    
+    public int getStock(){
+        return this.unites_en_stock;
+    }
+    
+    public int getUC(){
+        return this.unites_commandees;
+    }
+    
+    public int getReappro(){
+        return this.niveau_de_reappro;
+    }
+    
+    public int getDispo(){
+        return this.disponibilite;
+    }
 }

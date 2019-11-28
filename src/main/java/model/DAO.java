@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -72,6 +73,53 @@ public class DAO {
                     return result;
 		}
         }
+        public List<Line> allLines() throws SQLException {
+                List<Line> result = new LinkedList<>();
+                
+                String sql = "SELECT * FROM LIGNE";
+                try (Connection connection = myDataSource.getConnection(); 
+		     PreparedStatement stmt = connection.prepareStatement(sql)) {
+                        
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+                                int command = rs.getInt("COMMANDE");
+                                int product = rs.getInt("PRODUIT");
+                                int quantity = rs.getInt("QUANTITE");                                   
+                                Line l = new Line(command,product,quantity);
+				result.add(l);
+			}
+                    return result;
+		}
+        }
+        public List<Order> allOrders() throws SQLException {
+                List<Order> result = new LinkedList<>();
+                
+                String sql = "SELECT * FROM COMMANDE";
+                try (Connection connection = myDataSource.getConnection(); 
+		     PreparedStatement stmt = connection.prepareStatement(sql)) {
+                        
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+                                int number = rs.getInt("NUMERO");
+                                String client = rs.getString("CLIENT");
+                                Date writing_date = rs.getDate("SAISIE_LE"); 
+                                Date sending_date = rs.getDate("ENVOYEE_LE");
+                                float port = rs.getFloat("PORT");
+                                String target = rs.getString("DESTINATAIRE");
+                                String address = rs.getString("ADRESSE_LIVRAISON");
+                                String city = rs.getString("VILLE_LIVRAISON");
+                                String district = rs.getString("REGION_LIVRAISON");
+                                String pc = rs.getString("CODE_POSTAL_LIVRAISON");
+                                String country = rs.getString("PAYS_LIVRAISON");
+                                float discount = rs.getFloat("REMISE");
+                                
+                                Order o = new Order(number,client,writing_date,sending_date,port,target,address,city
+                                ,district,pc,country,discount);
+				result.add(o);
+			}
+                    return result;
+		}
+        }
 
         public List<Integer> numCommandes() throws SQLException {
 
@@ -88,6 +136,5 @@ public class DAO {
 		}
 		return result;
 	}
-    
-}
+    }
 

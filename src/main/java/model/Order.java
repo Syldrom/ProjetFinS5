@@ -21,11 +21,11 @@ public class Order {
     private String adresse_livraison;
     private String ville_livraison;
     private String region_livraison;
-    private int code_postal;
+    private String code_postal;
     private String pays;
     private float remise;
     
-    public Order(int num,String cli,Date s,Date env,float p, String desti, String addr_livraison,String ville_liv,String reg_livraison,int code,String country,float discount){
+    public Order(int num,String cli,Date s,Date env,float p, String desti, String addr_livraison,String ville_liv,String reg_livraison,String code,String country,float discount){
         this.numero=num;
         this.client=cli;
         this.saisie=s;
@@ -76,7 +76,7 @@ public class Order {
         return this.region_livraison;
     }
     
-    public int getCodePostal(){
+    public String getCodePostal(){
         return this.code_postal;
     }
     

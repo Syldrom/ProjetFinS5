@@ -89,7 +89,7 @@ public class ConnectionController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(ConnectionControler.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConnectionController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -107,7 +107,7 @@ public class ConnectionController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(ConnectionControler.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConnectionController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

@@ -61,7 +61,7 @@ public class ConnectionController extends HttpServlet {
             String userAdmin = findAdminInSession(request);
             String jspView;
             if (userName != null) {
-                jspView = "Page Client.jsp";
+                jspView = "Home.jsp";
             } else {
                 jspView = "Connexion.jsp";
             }
@@ -141,7 +141,7 @@ public class ConnectionController extends HttpServlet {
             // On stocke l'information dans la session
             HttpSession session = request.getSession(true); // démarre la session
             //Nom du client (Non admin)
-            String name = dao.nomClient(login, password);
+            String name = login;
             session.setAttribute("userName", name);
             session.setAttribute("id", password);
         } else { // On positionne un message d'erreur pour l'afficher dans la JSP

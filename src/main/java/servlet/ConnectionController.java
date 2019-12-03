@@ -136,7 +136,7 @@ public class ConnectionController extends HttpServlet {
         if (loginAd.equals(login) && passwordAd.equals(password)) {
             HttpSession session = request.getSession(true); // démarre la session
             session.setAttribute("userAdmin", userName);
-        } else if (dao.verifClientConnexion(login, password)) {
+        } else if (dao.connexionClient(login, password)) {
             // On a trouvé la combinaison login / password
             // On stocke l'information dans la session
             HttpSession session = request.getSession(true); // démarre la session

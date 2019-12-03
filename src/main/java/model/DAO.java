@@ -139,20 +139,21 @@ public class DAO {
 		return result;
 	}
         
-        //CONTROLES DE CONNEXION (A MODIFIER)
+        //CONTROLES DE CONNEXION
         
-         public boolean verifClientConnexion(String email,String id) throws SQLException {
+         public boolean connexionClient(String contact,String code) throws SQLException {
             boolean verif = false;
-            String sql = "SELECT COUNT(*) AS Nombre FROM CUSTOMER WHERE EMAIL=? AND CUSTOMER_ID=? ";
+            String sql = "SELECT CODE FROM CLIENT WHERE EXISTS (SELECT CONTACT,CODE FROM CLIENT WHERE CONTACT=? AND CODE = ?)";
+            //String sql1 = "SELECT COUNT(*) AS Nombre FROM CLIENT WHERE CONTACT=? AND CODE=? ";
             try (Connection connection = myDataSource.getConnection();
                     PreparedStatement stmt = connection.prepareStatement(sql)){
                     
-                    stmt.setString(1,email);
-                    stmt.setString(2,id);
+                    stmt.setString(1,contact);
+                    stmt.setString(2,code);
                     
-                    try(ResultSet resultSet = stmt.executeQuery()){
-                        if(resultSet.next()){
-                            verif = resultSet.getInt("Nombre")==1;
+                    try(ResultSet rs = stmt.executeQuery()){
+                        if(rs.next()){
+                            verif = true;
                         }
                     }catch (SQLException ex) {
 			Logger.getLogger("DAO").log(Level.SEVERE, null, ex);
@@ -161,28 +162,26 @@ public class DAO {
             return verif;
             }
          }
-        
-         public String nomClient(String email,String id) throws SQLException{
-            String result = "";
-            String sql = "SELECT NAME FROM CUSTOMER WHERE EMAIL=? AND CUSTOMER_ID=? ";
-            
+         public String nomClient(String contact,String code) throws SQLException {
+            String sql = "SELECT CONTACT FROM CLIENT WHERE EXISTS (SELECT CONTACT,CODE FROM CLIENT WHERE CONTACT=? AND CODE = ?)";
+            //String sql1 = "SELECT COUNT(*) AS Nombre FROM CLIENT WHERE CONTACT=? AND CODE=? ";
+            String result = null;
             try (Connection connection = myDataSource.getConnection();
                     PreparedStatement stmt = connection.prepareStatement(sql)){
                     
-                    stmt.setString(1,email);
-                    stmt.setString(2,id);
+                    stmt.setString(1,contact);
+                    stmt.setString(2,code);
                     
-                    try(ResultSet resultSet = stmt.executeQuery()){
-                        if(resultSet.next()){
-                            result = resultSet.getString("NAME");
+                    try(ResultSet rs = stmt.executeQuery()){
+                        if(rs.next()){
+                            result = rs.getString("CONTACT");
                         }
-            }catch (SQLException ex) {
+                    }catch (SQLException ex) {
 			Logger.getLogger("DAO").log(Level.SEVERE, null, ex);
 			throw new SQLException(ex.getMessage());
-                    }
+            }
             return result;
             }
-        }
-         
+         }
     }
 

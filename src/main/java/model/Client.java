@@ -22,10 +22,10 @@ public class Client {
     private String telephone;
     private String fax;
     
-    public Client(String cod,String societ,String contac,String fonctio,String addr,String city,String regio,String postal,String country,String tel,String faX){
+    public Client(String cod,String societ,String contact,String fonctio,String addr,String city,String regio,String postal,String country,String tel,String faX){
         this.code=cod;
         this.societe=societ;
-        this.contact=contac;
+        this.contact=contact;
         this.fonction=fonctio;
         this.adresse=addr;
         this.ville=city;

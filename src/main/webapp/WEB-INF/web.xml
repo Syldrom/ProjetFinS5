@@ -22,10 +22,7 @@
         </init-param>
     </servlet>
     
-    <servlet-mapping>
-        <servlet-name>LoginController</servlet-name>
-        <url-pattern>/LoginController</url-pattern>
-    </servlet-mapping>
+   
     <!-- Un filtre qui vérifie que l'utilisateur est connecté -->
     <filter>
         <filter-name>ProtectedPagesFilter</filter-name>
@@ -37,12 +34,6 @@
         <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
 
-    <!-- Un listener qui compte le nombre d'utilisateurs connectés à l'application -->
-    <listener>
-        <description>Counting connected users</description>
-        <listener-class>listeners.CountingUsers</listener-class>
-    </listener>
-    
     <!-- Contrôle le temps au bout duquel une session inactive est détruite automatiquement -->
     <session-config>
         <!-- Un temps volontairement court : 1 minute -->

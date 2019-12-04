@@ -12,7 +12,7 @@
     </head>
     <body>
         <div style="color:red">${errorMessage}</div></br>
-        <form action="<c:url value="/" />" mehod="POST">
+        <form action="ConnectionController" mehod="POST">
             <fieldset>
                 <legend>Connexion</legend>
             <label for="log"> Login :<span class="requis">*</span></label>

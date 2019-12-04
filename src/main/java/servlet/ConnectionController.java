@@ -36,7 +36,7 @@ public class ConnectionController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      * @throws java.sql.SQLException
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         try (PrintWriter out = response.getWriter()) {
             //Action appelée ? 
@@ -44,7 +44,7 @@ public class ConnectionController extends HttpServlet {
             if (null != action) {
                 switch (action) {
                     case "connexion":
-                        checkLogin(request);
+                        checkId(request,response);
                         break;
                     case "deconnexion":
                         doLogout(request);
@@ -120,7 +120,7 @@ public class ConnectionController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
+    
     private void checkLogin(HttpServletRequest request) throws SQLException {
         DAO dao = new DAO(DataSourceFactory.getDataSource());
 
@@ -148,6 +148,28 @@ public class ConnectionController extends HttpServlet {
             request.setAttribute("errorMessage", "Login/Password incorrect");
         }
     }
+    
+    protected void checkId(HttpServletRequest request, HttpServletResponse response)
+		throws ServletException, IOException {
+		// Quelle action a servi à appeler la servlet ? (Ajouter, Supprimer ou aucune = afficher)
+		
+		String login = request.getParameter("login");
+                String password = request.getParameter("password");
+		try {
+			DAO dao = new DAO(DataSourceFactory.getDataSource());                        
+			if (dao.connexionClient(login, password)){
+                            request.setAttribute("url","Home.jsp");
+                            }
+                        			
+		} catch (Exception ex) {
+			Logger.getLogger("discountEditor").log(Level.SEVERE, "Action en erreur", ex);
+			request.setAttribute("message", ex.getMessage());
+		} finally {
+
+		}
+		
+		request.getRequestDispatcher("Home.jsp").forward(request, response);
+	} 
 
     private void doLogout(HttpServletRequest request) {
         // On termine la session

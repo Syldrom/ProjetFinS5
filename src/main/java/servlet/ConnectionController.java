@@ -104,11 +104,23 @@ public class ConnectionController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(ConnectionController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        	String login = request.getParameter("login");
+                String password = request.getParameter("password");
+                String submitType = request.getParameter("action");
+		try {
+			DAO dao = new DAO(DataSourceFactory.getDataSource());
+                        if(submitType=="connexion"){
+                            if (dao.connexionClient(login, password)){
+                            request.getRequestDispatcher("GraphiqueParCatégorie.jsp").forward(request, response);
+                            }
+                        }        			
+		} catch (Exception ex) {
+			Logger.getLogger("discountEditor").log(Level.SEVERE, "Action en erreur", ex);
+			request.setAttribute("message", ex.getMessage());
+		} finally {
+
+		}	
+		request.getRequestDispatcher("GraphiqueParCtégorie.jsp").forward(request, response);
     }
 
     /**
@@ -151,14 +163,13 @@ public class ConnectionController extends HttpServlet {
     
     protected void checkId(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
-		// Quelle action a servi à appeler la servlet ? (Ajouter, Supprimer ou aucune = afficher)
 		
 		String login = request.getParameter("login");
                 String password = request.getParameter("password");
 		try {
 			DAO dao = new DAO(DataSourceFactory.getDataSource());                        
 			if (dao.connexionClient(login, password)){
-                            request.setAttribute("url","Home.jsp");
+                            request.getRequestDispatcher("GraphiqueParCatégorie.jsp").forward(request, response);
                             }
                         			
 		} catch (Exception ex) {
@@ -166,9 +177,8 @@ public class ConnectionController extends HttpServlet {
 			request.setAttribute("message", ex.getMessage());
 		} finally {
 
-		}
-		
-		request.getRequestDispatcher("Home.jsp").forward(request, response);
+		}	
+		request.getRequestDispatcher("GraphiqueParCtégorie.jsp").forward(request, response);
 	} 
 
     private void doLogout(HttpServletRequest request) {

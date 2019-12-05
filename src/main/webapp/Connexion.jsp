@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="Connexion.css" />
     </head>
     <body>
-        <div style="color:red">${errorMessage}</div></br>
+        <div style="color:red">${message}</div></br>
         <form action="ConnectionController" mehod="POST">
             <fieldset>
                 <legend>Connexion</legend>

@@ -17,7 +17,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Ignore;
 import org.junit.After;
-import org.hsqldb.cmdline.SqlFile
+import org.hsqldb.cmdline.SqlFile;
 import org.hsqldb.cmdline.SqlToolError;
 /**
  *
@@ -36,7 +36,7 @@ public class CheckingLoginTest {
         myDataSource = getDataSource();
 	myConnection = myDataSource.getConnection();
 	// On initialise la base avec le contenu d'un fichier de test
-	String sqlFilePath = CheckingLoginTest.class.getResource("comptoirs_data.sql").getFile();
+	String sqlFilePath = CheckingLoginTest.class.getResource("comptoirs_test.sql").getFile();
 	SqlFile sqlFile = new SqlFile(new File(sqlFilePath));
 	sqlFile.setConnection(myConnection);
 	sqlFile.execute();
@@ -63,10 +63,10 @@ public class CheckingLoginTest {
         String password = "ALFKI";
         
         //on teste un utlisateur
-        assertTrue(dao.connexionClient(username,"ANATR"));
+        assertTrue(dao.connexionClient(username,password));
         
         //on teste un utilisateur incorrect
-        assertFalse(dao.connexionClient(username, "ANATR"));
+        assertFalse(dao.connexionClient(username,"ANATR"));
 
     }
     

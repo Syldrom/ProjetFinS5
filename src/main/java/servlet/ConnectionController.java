@@ -36,7 +36,7 @@ public class ConnectionController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      * @throws java.sql.SQLException
      */
-     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+ /*    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         try (PrintWriter out = response.getWriter()) {
             //Action appelée ? 
@@ -44,7 +44,7 @@ public class ConnectionController extends HttpServlet {
             if (null != action) {
                 switch (action) {
                     case "connexion":
-                        checkId(request,response);
+                        doPost(request,response);
                         break;
                     case "deconnexion":
                         doLogout(request);
@@ -73,7 +73,7 @@ public class ConnectionController extends HttpServlet {
 
         }
     }
-
+*/
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -83,15 +83,6 @@ public class ConnectionController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(ConnectionController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -101,6 +92,7 @@ public class ConnectionController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -108,19 +100,25 @@ public class ConnectionController extends HttpServlet {
                 String password = request.getParameter("password");
                 String submitType = request.getParameter("action");
 		try {
-			DAO dao = new DAO(DataSourceFactory.getDataSource());
-                        if(submitType=="connexion"){
-                            if (dao.connexionClient(login, password)){
-                            request.getRequestDispatcher("GraphiqueParCatégorie.jsp").forward(request, response);
-                            }
-                        }        			
-		} catch (Exception ex) {
-			Logger.getLogger("discountEditor").log(Level.SEVERE, "Action en erreur", ex);
-			request.setAttribute("message", ex.getMessage());
-		} finally {
+                    DAO dao = new DAO(DataSourceFactory.getDataSource());
+                    if("connexion".equals(submitType)){
+                        
+                        if (dao.connexionClient(login, password)){
+                            HttpSession session = request.getSession(true);
+                            request.getRequestDispatcher("GraphiqueParCétgorie.jsp").forward(request, response);
+                        }
+                        else {
+                            HttpSession session = request.getSession(true);
+                            session.setAttribute("message","identifiant / mdp erroné");
 
+                            request.getRequestDispatcher("Connexion.jsp").include(request, response);
+        
+                        }
+                    }        			
+		} catch (Exception ex) {
+			request.getRequestDispatcher("Connexion.jsp").forward(request, response);
 		}	
-		request.getRequestDispatcher("GraphiqueParCtégorie.jsp").forward(request, response);
+		
     }
 
     /**
@@ -161,26 +159,6 @@ public class ConnectionController extends HttpServlet {
         }
     }
     
-    protected void checkId(HttpServletRequest request, HttpServletResponse response)
-		throws ServletException, IOException {
-		
-		String login = request.getParameter("login");
-                String password = request.getParameter("password");
-		try {
-			DAO dao = new DAO(DataSourceFactory.getDataSource());                        
-			if (dao.connexionClient(login, password)){
-                            request.getRequestDispatcher("GraphiqueParCatégorie.jsp").forward(request, response);
-                            }
-                        			
-		} catch (Exception ex) {
-			Logger.getLogger("discountEditor").log(Level.SEVERE, "Action en erreur", ex);
-			request.setAttribute("message", ex.getMessage());
-		} finally {
-
-		}	
-		request.getRequestDispatcher("GraphiqueParCtégorie.jsp").forward(request, response);
-	} 
-
     private void doLogout(HttpServletRequest request) {
         // On termine la session
         HttpSession session = request.getSession(false);

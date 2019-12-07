@@ -14,6 +14,7 @@
         <center>
         <div style="color:red">${message}</div></br>
         <form action="ConnectionController" mehod="POST">
+        <!--<form action="<c:url value="/" />" mehod="POST">-->
             <fieldset>
                 <legend>Connexion</legend>
             <label for="log"> Login :<span class="requis">*</span></label>

@@ -14,9 +14,22 @@
         <title>${userName}</title>
     </head>
     <body>
+        
+        <sql:setDataSource
+            var="myDS"
+            driver="org.apache.derby.jdbc.ClientDriver"
+            url="jdbc:derby://localhost:1527/comptoirs"
+            user="APP" password="app"
+        />
+     
+        <sql:query var="commande"   dataSource="${myDS}">
+            SELECT * FROM COMMANDE
+        </sql:query>
+        
         <div id="menu">
             </br><form action="<c:url value="/" />" method="POST" id="deco">
             <input type='submit' name='action' value='Deconnexion'>
+            </form>  
         </div>
             <!--<label for="qnt"> Quantite :</label>
             <input name="quantite" /></br>
@@ -29,45 +42,48 @@
             
             </br><input type="submit" name="action" value="Commander"/>
             </fieldset>-->
-        </form>    
+          
                 
         
                 </br>
-        <table border="1">
-            <tr>
-                <th>Numéro de Commande</th>
-                
-                <th>Client</th>
-                <th>Date de saisie</th>
-                <th>Date d'envoi</th>
-                <th>Port</th>
-                <th>Destinataire</th>
-                <th>Adresse de livraison</th>
-                <th>Ville de livraison</th>
-                <th>Région de livraison</th>
-                <th>Code Postal</th>
-                <th>Pays</th>
-                <th>Remise</th>
-                
-                
-                
-                <c:forEach var="record" items="${commande.rows}">
-                <tr><td>${record.NUMERO}</td>
-                    <td>${record.CLIENT}</td>
-                    <td>${record.SAISIE_LE}</td>
-                    <td>${record.ENVOYEE_LE}</td>
-                    <td>${record.PORT}</td>
-                    <td>${record.DESTINATAIRE}</td>
-                    <td>${record.ADRESSE_LIVRAISON}</td>
-                    <td>${record.VILLE_LIVRAISON}</td>
-                    <td>${record.REGION_LIVRAISON}</td>
-                    <td>${record.CODE_POSTAL_LIVRAIS}</td>
-                    <td>${record.PAYS_LIVRAISON}</td>
-                     <td>${record.REMISE}</td>
+        <div align=center">
+            <table border="1">
+                <tr>
+                    <th>Numéro de Commande</th>
+
+                    <th>Client</th>
+                    <th>Date de saisie</th>
+                    <th>Date d'envoi</th>
+                    <th>Port</th>
+                    <th>Destinataire</th>
+                    <th>Adresse de livraison</th>
+                    <th>Ville de livraison</th>
+                    <th>Région de livraison</th>
+                    <th>Code Postal</th>
+                    <th>Pays</th>
+                    <th>Remise</th>
+
+
+
+                    <c:forEach var="record" items="${commande.rows}">
+                    <tr>
+                        <td>${record.NUMERO}</td>
+                        <td>${record.CLIENT}</td>
+                        <td>${record.SAISIE_LE}</td>
+                        <td>${record.ENVOYEE_LE}</td>
+                        <td>${record.PORT}</td>
+                        <td>${record.DESTINATAIRE}</td>
+                        <td>${record.ADRESSE_LIVRAISON}</td>
+                        <td>${record.VILLE_LIVRAISON}</td>
+                        <td>${record.REGION_LIVRAISON}</td>
+                        <td>${record.CODE_POSTAL_LIVRAIS}</td>
+                        <td>${record.PAYS_LIVRAISON}</td>
+                         <td>${record.REMISE}</td>
+                    </tr>
+                    </c:forEach>
                 </tr>
-                </c:forEach>
-            </tr>
-        </table>
+            </table>
+        </div>
         
 	</form>
     </body>

@@ -75,14 +75,6 @@ public class ConnectionController extends HttpServlet {
     }
 */
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -99,15 +91,18 @@ public class ConnectionController extends HttpServlet {
         	String login = request.getParameter("login");
                 String password = request.getParameter("password");
                 String submitType = request.getParameter("action");
+                System.out.println("doPost");
 		try {
                     DAO dao = new DAO(DataSourceFactory.getDataSource());
                     if("connexion".equals(submitType)){
                         
                         if (dao.connexionClient(login, password)){
+                            System.out.println("Tentative de Connexion");
                             HttpSession session = request.getSession(true);
                             request.getRequestDispatcher("GraphiqueParCétgorie.jsp").forward(request, response);
                         }
                         else {
+                            System.out.println("Retour à la connexion");
                             HttpSession session = request.getSession(true);
                             session.setAttribute("message","identifiant / mdp erroné");
 
@@ -132,6 +127,7 @@ public class ConnectionController extends HttpServlet {
     }// </editor-fold>
     
     private void checkLogin(HttpServletRequest request) throws SQLException {
+        System.out.print("checkingLogin");
         DAO dao = new DAO(DataSourceFactory.getDataSource());
 
         // Les paramètres transmis dans la requête
@@ -146,6 +142,7 @@ public class ConnectionController extends HttpServlet {
         if (loginAd.equals(login) && passwordAd.equals(password)) {
             HttpSession session = request.getSession(true); // démarre la session
             session.setAttribute("userAdmin", userName);
+            System.out.println("Admin");
         } else if (dao.connexionClient(login, password)) {
             // On a trouvé la combinaison login / password
             // On stocke l'information dans la session
@@ -154,8 +151,10 @@ public class ConnectionController extends HttpServlet {
             String name = login;
             session.setAttribute("userName", name);
             session.setAttribute("id", password);
+            System.out.println("User");
         } else { // On positionne un message d'erreur pour l'afficher dans la JSP
             request.setAttribute("errorMessage", "Login/Password incorrect");
+            System.out.println("Fail");
         }
     }
     

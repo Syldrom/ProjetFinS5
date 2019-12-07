@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="Connexion.css" />
     </head>
     <body>
+        <center>
         <div style="color:red">${message}</div></br>
         <form action="ConnectionController" mehod="POST">
             <fieldset>
@@ -22,6 +23,8 @@
             
             </br><input type="submit" name="action" value="connexion" />
             </fieldset>
+        </center>
         </form>
+        <h3>Il y a actuellement ${applicationScope.numberConnected} utilisateurs connectés</h3>
     </body>
 </html>

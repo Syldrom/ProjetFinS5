@@ -12,6 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="Client.css" />
         <title>Edition données personnelles</title>
+        <script src="https://kit.fontawesome.com/dd6a857052.js" crossorigin="anonymous"></script>
     </head>
     <body>   
             
@@ -27,7 +28,10 @@
         <sql:query var="selecteur" dataSource="${myDS}">
             SELECT * from CATEGORIE
         </sql:query>
-        
+            <div class="header">
+                <h1>Bienvenue sur Amatoz</h1>
+            </div>
+            
         <!----------MENU---------->
             
         <div class="topnav">
@@ -36,8 +40,8 @@
             <div class="topnav-right">
                 <a class="active" href="#compte">Mon Compte</a>
                 <a href="#commandes">Mes Commandes</a>
-                <a href="#panier">Panier</a>
-                <a href="#deco" type='submit' name='action' value='Deconnexion'>Deconnexion</a>
+                <a href="#panier"><i class="fas fa-shopping-cart"></i></a>
+                <a href="#deco" type='submit' name='action' value='Deconnexion'><!--Deconnexion--><i class="fas fa-sign-out-alt"></i></a>
             </div>
         </div>     
         
@@ -50,7 +54,7 @@
                 
             <!----------DONNEES---------->
             
-            <div align=center">
+            <div class="contenu">
                 <form action="edit">
                     <c:forEach var="record" items="${client.rows}">
                         <label>Société:</label>
@@ -88,5 +92,73 @@
                     </c:forEach>
                 </form>
             </div>
+        <div>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+        </div>
         </p>
     </body>

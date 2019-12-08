@@ -12,6 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="Client.css" />
         <title>${userName}</title>
+        <script src="https://kit.fontawesome.com/dd6a857052.js" crossorigin="anonymous"></script>
     </head>
     <body>
         
@@ -25,15 +26,17 @@
         <sql:query var="commande"   dataSource="${myDS}">
             SELECT * FROM COMMANDE
         </sql:query>
-        
+        <div class="header">
+            <h1>Bienvenue sur Amatoz</h1>
+        </div>
         <div class="topnav">
             <a href="#produits">Produits</a>
             <a href="#categories">Categories</a>
             <div class="topnav-right">
                 <a href="#compte">Mon Compte</a>
                 <a class="active" href="#commandes">Mes Commandes</a>
-                <a href="#panier">Panier</a>
-                <a href="#deco" type='submit' name='action' value='Deconnexion'>Deconnexion</a>
+                <a href="#panier"><i class="fas fa-shopping-cart"></i></a>
+                <a href="#deco" type='submit' name='action' value='Deconnexion'><!--Deconnexion--><i class="fas fa-sign-out-alt"></i></a>
             </div>
         </div> 
             <!--<label for="qnt"> Quantite :</label>

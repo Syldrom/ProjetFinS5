@@ -111,8 +111,7 @@
                         <th>Commandées</th>
                         <th>Réappro</th>
                         <th>Indisponible</th>
-                        <th>Quantité</th>
-                        <th>Panier</th>
+                        
 
                         <c:if test="${param.categories gt 0}">
                             <c:if test="${param.categories lt 9}">

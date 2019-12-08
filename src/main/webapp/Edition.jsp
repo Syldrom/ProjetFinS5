@@ -79,8 +79,8 @@
                         <input type="text" name="fax" value="${record.FAX}">
                         </br>
                         <br><br>
+                    <input type="submit" value="Enregistrer mes informations" action="ediData">
                     </c:forEach>
-                    <input type="submit" value="Submit">
                 </form>
             </div>
         </p>

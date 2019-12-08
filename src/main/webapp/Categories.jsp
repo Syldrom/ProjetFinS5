@@ -103,6 +103,8 @@
                         <th>Commandées</th>
                         <th>Réappro</th>
                         <th>Indisponible</th>
+                        <th>Quantité</th>
+                        <th>Panier</th>
 
                         <c:if test="${param.categories gt 0}">
                             <c:if test="${param.categories lt 9}">
@@ -118,6 +120,16 @@
                                         <td>${record.UNITES_COMMANDEES}</td>
                                         <td>${record.NIVEAU_DE_REAPPRO}</td>
                                         <td>${record.INDISPONIBLE}</td>
+                                        <td><select name="categories"  >
+                                            <option value=1 selected>1</option>
+                                             <% for(int i = 2; i < 10; i+=1)  { %>
+                                                <% int v = i;
+                                                    pageContext.setAttribute("index", new Integer(i));
+                                                %>
+                                                <option value=${index}>${index}</option>
+                                             <% } %>
+                                            </select>
+                                        </td>
                                         <td><button value="${record.REFERENCE}" type="button">Ajouter au panier</button></td>
                                     </tr>
                                 </c:forEach>

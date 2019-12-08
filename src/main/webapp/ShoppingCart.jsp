@@ -29,12 +29,18 @@
         </sql:query>
         
         <!----------MENU---------->
-            
-        <div id="menu">
-            </br><form action="<c:url value="/" />" method="POST" id="deco">
-            <input type='submit' name='action' value='Deconnexion'>
-            </form>  
-        </div>        
+        <div class="topnav">
+            <a href="#produits">Produits</a>
+            <a href="#categories">Categories</a>
+            <div class="topnav-right">
+                <a href="#compte">Mon Compte</a>
+                <a href="#commandes">Mes Commandes</a>
+                <a class="active"  href="#panier">Panier</a>
+                <a href="#deco" type='submit' name='action' value='Deconnexion'>Deconnexion</a>
+            </div>
+        </div> 
+
+                
         
         <p>
             <!-------REQUETE POUR LE PANIER DU CLIENT---------->

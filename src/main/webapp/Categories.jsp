@@ -30,11 +30,16 @@
         
         <!----------MENU---------->
             
-        <div id="menu">
-            </br><form action="<c:url value="/" />" method="POST" id="deco">
-            <input type='submit' name='action' value='Deconnexion'>
-            </form>  
-        </div>
+        <div class="topnav">
+            <a href="#produits">Produits</a>
+            <a class="active" href="#categories">Categories</a>
+            <div class="topnav-right">
+                <a href="#compte">Mon Compte</a>
+                <a href="#commandes">Mes Commandes</a>
+                <a href="#panier">Panier</a>
+                <a href="#deco" type='submit' name='action' value='Deconnexion'>Deconnexion</a>
+            </div>
+        </div> 
             
         <p>
             <!--<label for="qnt"> Quantite :</label>

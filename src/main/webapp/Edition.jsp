@@ -39,14 +39,49 @@
         <p>
             <!-------REQUETE POUR LES INFOS PERSONNELLES---------->
         
-            <sql:query var="produit"   dataSource="${myDS}">
-                SELECT * FROM CLIENT WHERE CODE=${param.code}
+            <sql:query var="client"   dataSource="${myDS}">
+                SELECT * FROM CLIENT WHERE CLIENT.CODE = '${param.codeClient}'
             </sql:query>
                 
             <!----------DONNEES---------->
             
             <div align=center">
-                
+                <form action="edit">
+                    <c:forEach var="record" items="${client.rows}">
+                        <label>Société:</label>
+                        <input type="text" name="firstname" value="${record.SOCIETE}">
+                        </br>
+                        <label>Contact:</label>
+                        <input type="text" name="lastname" value="${record.CONTACT}">
+                        </br>
+                        <label>Fonction:</label>
+                        <input type="text" name="fonction" value="${record.FONCTION}">
+                        </br>
+                        <label>Adresse:</label>
+                        <input type="text" name="adresse" value="${record.ADRESSE}">
+                        </br>
+                        <label>Ville:</label>
+                        <input type="text" name="ville" value="${record.VILLE}">
+                        </br>
+                        <label>Région:</label>
+                        <input type="text" name="region" value="${record.REGION}">
+                        </br>
+                        <label>Code Postal:</label>
+                        <input type="text" name="code_postal" value="${record.CODE_POSTAL}">
+                        </br>
+                        <label>Pays:</label>
+                        <input type="text" name="pays" value="${record.PAYS}">
+                        </br>
+                        <label>Téléphone:</label>
+                        <input type="text" name="telephone" value="${record.TELEPHONE}">
+                        </br>
+                        <label>Fax:</label>
+                        <input type="text" name="fax" value="${record.FAX}">
+                        </br>
+                        <br><br>
+                    </c:forEach>
+                    <input type="submit" value="Submit">
+                </form>
             </div>
         </p>
     </body>

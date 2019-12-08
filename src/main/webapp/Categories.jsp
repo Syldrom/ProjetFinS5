@@ -135,12 +135,7 @@
                                 </c:forEach>
                             </c:if>
                         </c:if>
-                            
-                            
-                            
-                            
-                            
-                            
+
                         <!--<script>
                         
                             

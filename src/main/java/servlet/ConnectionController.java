@@ -63,12 +63,17 @@ public class ConnectionController extends HttpServlet {
                 String login = request.getParameter("login");
                 String password = request.getParameter("password");		
                 DAO dao = new DAO(DataSourceFactory.getDataSource());
-                if(login.equals(password)){                      
-                        jspView="GraphiqueParCetogrie.jsp";
-                                                
-                    }
-            response.sendRedirect(jspView);
+        try {
+            if(dao.connexionClient(login, password)){
+                jspView="GraphiqueParCetogrie.jsp";
+                response.sendRedirect(jspView);
+                
+            }
+            
             //request.getRequestDispatcher(jspView).forward(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(ConnectionController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }
 

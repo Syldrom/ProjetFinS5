@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,7 +24,7 @@ import model.DataSourceFactory;
  *
  * @author Nicolas
  */
-//@WebServlet(name = "ConnectionControler", urlPatterns = {"/ConnectionControler"})
+@WebServlet(name = "ConnectionController", urlPatterns = {"/ConnectionController"})
 public class ConnectionController extends HttpServlet {
 
     /**
@@ -36,44 +37,14 @@ public class ConnectionController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      * @throws java.sql.SQLException
      */
- /*    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         try (PrintWriter out = response.getWriter()) {
-            //Action appelée ? 
-            String action = request.getParameter("action");
-            if (null != action) {
-                switch (action) {
-                    case "connexion":
-                        doPost(request,response);
-                        break;
-                    case "deconnexion":
-                        doLogout(request);
-                        break;
-                    case "Commander":
-                        //AjouterCommande(request);
-                        break;
-                }
-            }
-
-            // Est-ce que l'utilisateur est connecté ?
-            // On cherche l'attribut userName dans la session
-            String userName = findUserInSession(request);
-            String userAdmin = findAdminInSession(request);
-            String jspView;
-            if (userName != null) {
-                jspView = "Home.jsp";
-            } else {
-                jspView = "Connexion.jsp";
-            }
-            if (userAdmin != null) {
-                jspView = "GraphiqueParCatégorie.jsp";
-            }
-            // On va vers la page choisie
-            request.getRequestDispatcher(jspView).forward(request, response);
+            String jspView ="/";
 
         }
     }
-*/
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
     /**
@@ -86,46 +57,34 @@ public class ConnectionController extends HttpServlet {
      */
     
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        	String login = request.getParameter("login");
-                String password = request.getParameter("password");
-                String submitType = request.getParameter("action");
-                System.out.println("doPost");
-		try {
-                    DAO dao = new DAO(DataSourceFactory.getDataSource());
-                    if("connexion".equals(submitType)){
-                        
-                        if (dao.connexionClient(login, password)){
-                            System.out.println("Tentative de Connexion");
-                            HttpSession session = request.getSession(true);
-                            request.getRequestDispatcher("GraphiqueParCétgorie.jsp").forward(request, response);
-                        }
-                        else {
-                            System.out.println("Retour à la connexion");
-                            HttpSession session = request.getSession(true);
-                            session.setAttribute("message","identifiant / mdp erroné");
-
-                            request.getRequestDispatcher("Connexion.jsp").include(request, response);
+                String jspView="/";
+                String login = request.getParameter("login");
+                String password = request.getParameter("password");		
+                DAO dao = new DAO(DataSourceFactory.getDataSource());
+                if(login.equals(password)){                      
+                        jspView="GraphiqueParCetogrie.jsp";
+                                                
+                    }
+            response.sendRedirect(jspView);
+            //request.getRequestDispatcher(jspView).forward(request, response);
         
-                        }
-                    }        			
-		} catch (Exception ex) {
-			request.getRequestDispatcher("Connexion.jsp").forward(request, response);
-		}	
-		
     }
+
 
     /**
      * Returns a short description of the servlet.
      *
      * @return a String containing servlet description
      */
+/*
     @Override
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    
+*/
+/*
     private void checkLogin(HttpServletRequest request) throws SQLException {
         System.out.print("checkingLogin");
         DAO dao = new DAO(DataSourceFactory.getDataSource());
@@ -134,8 +93,8 @@ public class ConnectionController extends HttpServlet {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
 
-        /*Le login/password défini dans web.xml*/
-        String loginAd = getInitParameter("loginAdmin");
+*/        /*Le login/password défini dans web.xml*/
+/*        String loginAd = getInitParameter("loginAdmin");
         String passwordAd = getInitParameter("passwordAdmin");
         String userName = getInitParameter("ID");
 
@@ -157,7 +116,7 @@ public class ConnectionController extends HttpServlet {
             System.out.println("Fail");
         }
     }
-    
+
     private void doLogout(HttpServletRequest request) {
         // On termine la session
         HttpSession session = request.getSession(false);
@@ -191,4 +150,5 @@ public class ConnectionController extends HttpServlet {
         dao.ajoutCommande(commande);
 
     }*/
+
 }

@@ -13,16 +13,14 @@
     <body>
         <center>
         <div style="color:red">${message}</div></br>
-        <form action="ConnectionController" mehod="POST">
-        <!--<form action="<c:url value="/" />" mehod="POST">-->
+        <form action="ConnectionController" method="POST">
             <fieldset>
                 <legend>Connexion</legend>
             <label for="log"> Login :<span class="requis">*</span></label>
-            <input name="login" /></br>
+            <input type="text" name="login"/></br>
             <label for="mdp"> Password :<span class="requis">*</span></label>
-            <input type="password" name="password" /></br>
-            
-            </br><input type="submit" name="action" value="connexion" />
+            <input type="password" name="password"/></br>         
+            </br><input type="submit" value="connexion"/>
             </fieldset>
         </center>
         </form>

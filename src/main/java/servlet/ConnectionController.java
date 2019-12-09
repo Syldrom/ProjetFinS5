@@ -65,7 +65,7 @@ public class ConnectionController extends HttpServlet {
                 DAO dao = new DAO(DataSourceFactory.getDataSource());
         try {
             if(dao.connexionClient(login, password)){
-                jspView="GraphiqueParCateogrie.jsp";
+                jspView="GraphiqueParCategorie.jsp";
                 response.sendRedirect(jspView);
                 
             }

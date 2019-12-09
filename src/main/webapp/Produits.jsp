@@ -3,6 +3,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <sql:setDataSource 
+        var="myDS"
 	driver="org.apache.derby.jdbc.ClientDriver"
 	url="jdbc:derby://localhost:1527/comptoirs"
 	user="app" password="app"
@@ -16,12 +17,7 @@
     </head>
     <body>
         
-        <sql:setDataSource
-            var="myDS"
-            driver="org.apache.derby.jdbc.ClientDriver"
-            url="jdbc:derby://localhost:1527/comptoirs"
-            user="APP" password="app"
-        />
+
      
         <sql:query var="produit"   dataSource="${myDS}">
             SELECT * FROM PRODUIT
@@ -82,7 +78,7 @@
                         <td>${record.INDISPONIBLE}</td>
                         <td><select name="categories"  >
                                 <option value=1 selected>1</option>
-                                <% for(int i = 2; i < 10; i+=1)  { %>
+                                <% for(int i = 0; i < 10; i+=1)  { %>
                                     <% int v = i;
                                         pageContext.setAttribute("index", new Integer(i));
                                     %>

@@ -3,6 +3,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <sql:setDataSource 
+        var="myDS"
 	driver="org.apache.derby.jdbc.ClientDriver"
 	url="jdbc:derby://localhost:1527/comptoirs"
 	user="app" password="app"
@@ -16,12 +17,7 @@
     </head>
     <body>   
             
-        <sql:setDataSource
-            var="myDS"
-            driver="org.apache.derby.jdbc.ClientDriver"
-            url="jdbc:derby://localhost:1527/comptoirs"
-            user="APP" password="app"
-        />
+
      
         <!-------REQUETE POUR LE SELECTEUR---------->
         

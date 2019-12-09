@@ -15,13 +15,7 @@
         <script src="https://kit.fontawesome.com/dd6a857052.js" crossorigin="anonymous"></script>
     </head>
     <body>   
-            
-        <sql:setDataSource
-            var="myDS"
-            driver="org.apache.derby.jdbc.ClientDriver"
-            url="jdbc:derby://localhost:1527/comptoirs"
-            user="APP" password="app"
-        />
+
      
         <!-------REQUETE POUR LE SELECTEUR---------->
         

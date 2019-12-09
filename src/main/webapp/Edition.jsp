@@ -20,7 +20,7 @@
             var="myDS"
             driver="org.apache.derby.jdbc.ClientDriver"
             url="jdbc:derby://localhost:1527/comptoirs"
-            user="APP" password="app"
+            user="app" password="app"
         />
      
         <!-------REQUETE POUR LE SELECTEUR---------->

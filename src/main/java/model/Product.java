@@ -5,6 +5,8 @@
  */
 package model;
 
+import java.util.Objects;
+
 /**
  *
  * @author pedago
@@ -95,4 +97,71 @@ public class Product {
     public int getDispo(){
         return this.disponibilite;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 19 * hash + this.ref;
+        hash = 19 * hash + Objects.hashCode(this.nom);
+        hash = 19 * hash + this.fournisseur;
+        hash = 19 * hash + this.categorie;
+        hash = 19 * hash + Objects.hashCode(this.quantite);
+        hash = 19 * hash + Float.floatToIntBits(this.prix_uni);
+        hash = 19 * hash + this.unites_en_stock;
+        hash = 19 * hash + this.unites_commandees;
+        hash = 19 * hash + this.niveau_de_reappro;
+        hash = 19 * hash + this.disponibilite;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Product other = (Product) obj;
+        if (this.ref != other.ref) {
+            return false;
+        }
+        if (this.fournisseur != other.fournisseur) {
+            return false;
+        }
+        if (this.categorie != other.categorie) {
+            return false;
+        }
+        if (Float.floatToIntBits(this.prix_uni) != Float.floatToIntBits(other.prix_uni)) {
+            return false;
+        }
+        if (this.unites_en_stock != other.unites_en_stock) {
+            return false;
+        }
+        if (this.unites_commandees != other.unites_commandees) {
+            return false;
+        }
+        if (this.niveau_de_reappro != other.niveau_de_reappro) {
+            return false;
+        }
+        if (this.disponibilite != other.disponibilite) {
+            return false;
+        }
+        if (!Objects.equals(this.nom, other.nom)) {
+            return false;
+        }
+        if (!Objects.equals(this.quantite, other.quantite)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" + "ref=" + ref + ", nom=" + nom + ", fournisseur=" + fournisseur + ", categorie=" + categorie + ", quantite=" + quantite + ", prix_uni=" + prix_uni + ", unites_en_stock=" + unites_en_stock + ", unites_commandees=" + unites_commandees + ", niveau_de_reappro=" + niveau_de_reappro + ", disponibilite=" + disponibilite + '}';
+    }
+    
 }

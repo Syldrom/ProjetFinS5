@@ -66,8 +66,7 @@ public class ConnectionController extends HttpServlet {
         try {
             if(dao.connexionClient(login, password)){
                 jspView="GraphiqueParCategorie.jsp";
-                response.sendRedirect(jspView);
-                
+                response.sendRedirect(jspView);                
             }
             
             //request.getRequestDispatcher(jspView).forward(request, response);

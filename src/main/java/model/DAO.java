@@ -162,19 +162,20 @@ public class DAO {
             return verif;
             }
          }
-         public String nomClient(String contact,String code) throws SQLException {
-            String sql = "SELECT CONTACT FROM CLIENT WHERE EXISTS (SELECT CONTACT,CODE FROM CLIENT WHERE CONTACT=? AND CODE = ?)";
+         
+         public String nomCategorie( int ID ) throws SQLException {
+            String sql = "SELECT libelle FROM CATEGORIE , PRODUIT WHERE categorie.code = produit.categorie and categorie.code = ? ";
             //String sql1 = "SELECT COUNT(*) AS Nombre FROM CLIENT WHERE CONTACT=? AND CODE=? ";
             String result = null;
             try (Connection connection = myDataSource.getConnection();
                     PreparedStatement stmt = connection.prepareStatement(sql)){
                     
-                    stmt.setString(1,contact);
-                    stmt.setString(2,code);
+                    stmt.setInt(1,ID);
+                    
                     
                     try(ResultSet rs = stmt.executeQuery()){
                         if(rs.next()){
-                            result = rs.getString("CONTACT");
+                            result = rs.getString("libelle");
                         }
                     }catch (SQLException ex) {
 			Logger.getLogger("DAO").log(Level.SEVERE, null, ex);

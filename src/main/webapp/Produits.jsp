@@ -2,17 +2,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<sql:setDataSource 
-        var="myDS"
-	driver="org.apache.derby.jdbc.ClientDriver"
-	url="jdbc:derby://localhost:1527/comptoirs"
-	user="app" password="app"
-/>
+
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="Client.css" />
         <title>Produits</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.1.0/mustache.min.js"></script>
         <script src="https://kit.fontawesome.com/dd6a857052.js" crossorigin="anonymous"></script>
@@ -20,9 +16,6 @@
     </head>
     <body>
         
-
-     
-
         <div class="header">
             <h1>Bienvenue sur Amatoz</h1>
         </div>
@@ -39,9 +32,14 @@
         
                 <div id="products"></div>
                 <script id ="ProductTemplate" type="text/template">
-                    <table border="1">
+                <table class="table" border="1">
                     {{#records}}
-                       <TR><TD> {{nom}} </TR></TD>
+                       <TR><TD> {{nom}}</TD>
+                       <TD> {{categorie}} </TD>
+                       <TD> {{quantite}}</TD>
+                       <TD> {{prix_uni}}</TD>
+                       <TD> {{disponibilite}} </TD>
+                       </TR>
                     {{/records}}
                     </table>
                 </script>

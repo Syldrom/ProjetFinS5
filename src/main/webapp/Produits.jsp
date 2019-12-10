@@ -32,13 +32,22 @@
         
                 <div id="products"></div>
                 <script id ="ProductTemplate" type="text/template">
-                <table class="table" border="1">
+                <table class="table table-hover">
                     {{#records}}
                        <TR><TD> {{nom}}</TD>
-                       <TD> {{categorie}} </TD>
                        <TD> {{quantite}}</TD>
                        <TD> {{prix_uni}}</TD>
                        <TD> {{disponibilite}} </TD>
+                       <td>
+                       <div class="btn-group" role="group">
+                        <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Dropdown
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                        <a class="dropdown-item" >Dropdown link</a>
+                        <a class="dropdown-item" >Dropdown link</a>
+                        </div>
+                        </div></td>
                        </TR>
                     {{/records}}
                     </table>

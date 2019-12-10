@@ -61,11 +61,11 @@ public class DAOTest {
       
     }
     
- /*   @Test
-    public void nomClient() throws SQLException {
+    @Test
+    public void connexionClientTest() throws SQLException {
         String contact = "Maria Anders";
         String code = "ALFKI";
-        assertEquals( dao.nomClient(contact,code) , "" );
+        assertEquals( dao.connexionClient(contact,code) , true );
     }
-   */
+   
 }

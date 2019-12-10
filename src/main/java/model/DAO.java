@@ -141,6 +141,8 @@ public class DAO {
         
         //CONTROLES DE CONNEXION
         
+
+        
          public boolean connexionClient(String contact,String code) throws SQLException {
             boolean verif = false;
             String sql = "SELECT CODE FROM CLIENT WHERE EXISTS (SELECT CONTACT,CODE FROM CLIENT WHERE CONTACT=? AND CODE = ?)";

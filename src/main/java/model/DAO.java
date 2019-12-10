@@ -34,10 +34,37 @@ public class DAO {
 
 		List<Product> result = new LinkedList<>();
 
-		String sql = "SELECT * FROM PRODUIT ORDER BY REFERENCE";
+		String sql = "SELECT * FROM PRODUIT ORDER BY CATEGORIE,REFERENCE";
 		try (Connection connection = myDataSource.getConnection(); 
 		     PreparedStatement stmt = connection.prepareStatement(sql)) {
                         
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+                                int ref = rs.getInt("REFERENCE");
+                                String name = rs.getString("NOM");
+                                int four = rs.getInt("FOURNISSEUR");
+                                int cate = rs.getInt("CATEGORIE");                                
+                                String quantity = rs.getString("QUANTITE_PAR_UNITE");
+                                float price = rs.getFloat("PRIX_UNITAIRE");
+                                int stock = rs.getInt("UNITES_EN_STOCK");
+                                int sales = rs.getInt("UNITES_COMMANDEES");
+                                int restock = rs.getInt("NIVEAU_DE_REAPPRO");
+                                int unvailable = rs.getInt("INDISPONIBLE");
+                                
+                                Product p = new Product(ref,name,four,cate,quantity,price,stock,sales,restock,unvailable);
+				result.add(p);
+			}
+		}
+		return result;
+	}
+        public List<Product> allProductsByCategory(Integer categorie) throws SQLException {
+
+		List<Product> result = new LinkedList<>();
+
+		String sql = "SELECT * FROM PRODUIT WHERE CATEGORIE=? ORDER BY CATEGORIE,REFERENCE";
+		try (Connection connection = myDataSource.getConnection(); 
+		     PreparedStatement stmt = connection.prepareStatement(sql)) {
+                        stmt.setInt(1, categorie);
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
                                 int ref = rs.getInt("REFERENCE");

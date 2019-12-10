@@ -26,10 +26,10 @@ import model.Product;
 
 /**
  *
- * @author pedago
+ * @author Sylvain
  */
-@WebServlet(name = "CategoryController", urlPatterns = {"/CategoryController"})
-public class CategoryController extends HttpServlet {
+@WebServlet(name = "ProductByCategoryController", urlPatterns = {"/ProductByCategoryController"})
+public class ProductByCategoryController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,27 +41,26 @@ public class CategoryController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException, SQLException {
-		// Quelle action a servi à appeler la servlet ? (Ajouter, Supprimer ou aucune = afficher)
-		//String action = request.getParameter("action");
-		//action = (action == null) ? "" : action; // Pour le switch qui n'aime pas les null
-		DAO dao = new DAO(DataSourceFactory.getDataSource());
-                List<Category> categories = null ;
-		try {
-                        categories = dao.allCategory();	
-		} catch (Exception ex) {
-			Logger.getLogger("CategoryController.jsp").log(Level.SEVERE, "Action en erreur", ex);
-			request.setAttribute("message", ex.getMessage());
-		} 
-		try (PrintWriter out = response.getWriter()){
-                    Properties res = new Properties();
-                    res.put("records", categories);
-                    response.setContentType("application/json;charset=UTF-8");
-                    Gson gson = new GsonBuilder().setPrettyPrinting().create();
-                    String gson_data = gson.toJson(res);
-                    out.println(gson_data);
-                    
-                }
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        DAO dao = new DAO(DataSourceFactory.getDataSource());
+        int categorie = Integer.parseInt(request.getParameter("categories"));
+         List<Product> produits = null;
+        try{
+           produits = dao.allProductsByCategory(categorie);
+        }catch(SQLException ex){
+            Logger.getLogger("CategoryController.jsp").log(Level.SEVERE, "Action en erreur", ex);
+            request.setAttribute("message", ex.getMessage());
+        }
+        try (PrintWriter out = response.getWriter()) {
+            Properties res = new Properties();
+            res.put("records", produits);
+            response.setContentType("application/json;charset=UTF-8");
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            String gson_data = gson.toJson(res);
+            out.println(gson_data);
+            
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -76,11 +75,7 @@ public class CategoryController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(CategoryController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -94,11 +89,7 @@ public class CategoryController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(CategoryController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**

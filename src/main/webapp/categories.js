@@ -18,6 +18,21 @@ function showCategories() {
         error: showError
     });
 }
+function showProductsByCategories(cat) {
+    $.ajax({
+        url: "ProductByCategoryController",
+        data: {categories: cat},
+        dataType:"json",
+        success: 
+                function(result) {
+                    var template = $('#ProductTemplate').html();
+                    var processedTemplate = Mustache.to_html(template,{produits: result.records});
+                    $('#products').html(processedTemplate);
+                    
+                },
+        error: showError
+    });
+}
 function showError(xhr,status, message) {
     alert("Alerte aux gogoles :" + status + ": " + message);
     

@@ -23,8 +23,28 @@
         <script>
             $( document ).ready(function() {
                 console.log( "ready!" );
+                
+                function getUrlVars() {
+                    var vars = {};
+                    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+                        vars[key] = value;
+                    });
+                    return vars;
+                }
+                function getUrlParam(parameter, defaultvalue){
+                    var urlparameter = defaultvalue;
+                    if(window.location.href.indexOf(parameter) > -1){
+                        urlparameter = getUrlVars()[parameter];
+                        }
+                    return urlparameter;
+                }
+
+                var c = getUrlParam('categories',1);
+
+
+                
                 showCategories();
-                showProducts();
+                showProductsByCategories(c);
             });
         </script>
         <div class="header">
@@ -48,8 +68,7 @@
             <select name="categories" id="categories" >
                 <script type="text/template"id ="CategoryTemplate" >
                     {{#records}}
-                      //<option value = {{code}} > {{libelle}} </option>
-                      <h1>{{code}}</h1>
+                      <option value = {{code}} > {{libelle}} </option>
                     {{/records}}
                 </script>
             </select>        
@@ -66,13 +85,12 @@
                 console.log('You like ' + event.target.value + ' ice cream.'); 
                 location.reload(true);
                 window.location.replace("Categories.jsp?categories="+event.target.value);
+                
             }
             
         </script>
         
         <p>
-            <!-------REQUETE POUR LE PEUPLEMENT DE PRODUITS---------->
-
                 
             <!----------PRODUITS---------->
             
@@ -93,8 +111,10 @@
                             <th>Commandées</th>
                             <th>Réappro</th>
                             <th>Indisponible</th>
+                            <th>Quantité</th>
+                            <th>Panier</th>
                         </tr>   
-                        {{#records}}
+                        {{#produits}}
                            <tr>
                            <td>{{ref}}</td>
                            <td>{{nom}}</td>
@@ -105,8 +125,15 @@
                            <td>{{unites_commandees}}</td>
                            <td>{{niveau_de_reappro}}</td>
                            <td>{{disponibilite}}</td>
+                           <td><input type="number" name="quantity" min="1" max="{{unites_en_stock}}"></td>
+                           <!--{% if {{disponibilite}} == 0 %}-->
+                                   
+                                            <td><button type="button value="{{ref}}">Ajouter au Panier</button></td>
+                           <!--{% else %}-->
+                           <!--<td><button type="button value="{{ref}}">Indisponible</button></td>-->
+                           <!--{% endif %}-->
                            </tr>
-                        {{/records}}
+                        {{/produits}}
                         </table>
                 </script>
                 

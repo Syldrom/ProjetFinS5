@@ -13,17 +13,20 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="Client.css" />
         <title>Produits par catégories</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.1.0/mustache.min.js"></script>
         <script src="https://kit.fontawesome.com/dd6a857052.js" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="categories.js"></script>
+        <script type="text/javascript" src="produits.js"></script>
     </head>
     <body>   
-            
-
-     
-        <!-------REQUETE POUR LE SELECTEUR---------->
-        
-        <sql:query var="selecteur" dataSource="${myDS}">
-            SELECT * from CATEGORIE
-        </sql:query>
+        <script>
+            $( document ).ready(function() {
+                console.log( "ready!" );
+                showCategories();
+                showProducts();
+            });
+        </script>
         <div class="header">
             <h1>Bienvenue sur Amatoz</h1>
         </div>
@@ -41,31 +44,14 @@
         </div> 
             
         <p>
-            <!--<label for="qnt"> Quantite :</label>
-            <input name="quantite" /></br>
-            <label for="fdp"> Frais de port :</label>
-            <input name="fraisport" /></br>
-            <label for="dateA"> Date d'achat</label>
-            <input type="date" name="dateAchat" /></br>
-            <label for="dateL"> Date de livraison</label>
-            <input type="date" name="dateLivraison" /></br>
-            
-            </br><input type="submit" name="action" value="Commander"/>
-            </fieldset>-->
-          
-            <!----------SELECTEUR---------->
-            <select name="categories" id="cate" >
-                <!--<option value="rien" selected>Veuillez choisir une catégorie</option>-->
-                <!--<option value="${param.categories}" selected> ${param.categories}</option>-->
-                <c:if test="${empty param.categories}">
-                    <script>
-                        console.log("fail");
-                        return window.location.replace("Categories.jsp?categories=1");
-                    </script>
-                </c:if>
-                <c:forEach var="row" items="${selecteur.rows}">
-                    <option value=${row.CODE} <c:if test="${param.categories eq row.CODE}" > selected</c:if> >${row.LIBELLE}</option>
-                </c:forEach> 
+           <!----------SELECTEUR---------->
+            <select name="categories" id="categories" >
+                <script type="text/template"id ="CategoryTemplate" >
+                    {{#records}}
+                      //<option value = {{code}} > {{libelle}} </option>
+                      <h1>{{code}}</h1>
+                    {{/records}}
+                </script>
             </select>        
         </p>
         
@@ -86,58 +72,44 @@
         
         <p>
             <!-------REQUETE POUR LE PEUPLEMENT DE PRODUITS---------->
-        
-            <sql:query var="produit"   dataSource="${myDS}">
-                SELECT * FROM PRODUIT WHERE CATEGORIE=${param.categories}
-            </sql:query>
+
                 
             <!----------PRODUITS---------->
             
             <div align=center">
                 <label>Nos produits de la catégorie</label>
-                <table id="item" border="1">
-                    <tr>
-                        <th>Référence</th>
-                        <th>Nom</th>
-                        <th>Fournisseur</th>
-                        <!--<th>Categorie</th>-->
-                        <th>Quantité par unité</th>
-                        <th>Prix unitaire</th>
-                        <th>Stock</th>
-                        <th>Commandées</th>
-                        <th>Réappro</th>
-                        <th>Indisponible</th>
-                        
-
-                        <c:if test="${param.categories gt 0}">
-                            <c:if test="${param.categories lt 9}">
-                                <c:forEach var="record" items="${produit.rows}">
-
-                                    <tr>
-                                        <td>${record.REFERENCE}</td>
-                                        <td>${record.NOM}</td>
-                                        <td>${record.FOURNISSEUR}</td>
-                                        <td>${record.QUANTITE_PAR_UNITE}</td>
-                                        <td>${record.PRIX_UNITAIRE}</td>
-                                        <td>${record.UNITES_EN_STOCK}</td>
-                                        <td>${record.UNITES_COMMANDEES}</td>
-                                        <td>${record.NIVEAU_DE_REAPPRO}</td>
-                                        <td>${record.INDISPONIBLE}</td>
-                                        <td><select name="categories"  >
-                                            <option value=1 selected>1</option>
-                                             <% for(int i = 2; i < 10; i+=1)  { %>
-                                                <% int v = i;
-                                                    pageContext.setAttribute("index", new Integer(i));
-                                                %>
-                                                <option value=${index}>${index}</option>
-                                             <% } %>
-                                            </select>
-                                        </td>
-                                        <td><button value="${record.REFERENCE}" type="button">Ajouter au panier</button></td>
-                                    </tr>
-                                </c:forEach>
-                            </c:if>
-                        </c:if>
+                <div id="products" ></div>
+                
+                    <script id ="ProductTemplate" type="text/template">
+                        <table border="1">
+                        <tr>
+                            <th>Référence</th>
+                            <th>Nom</th>
+                            <th>Fournisseur</th>
+                            <!--<th>Categorie</th>-->
+                            <th>Quantité par unité</th>
+                            <th>Prix unitaire</th>
+                            <th>Stock</th>
+                            <th>Commandées</th>
+                            <th>Réappro</th>
+                            <th>Indisponible</th>
+                        </tr>   
+                        {{#records}}
+                           <tr>
+                           <td>{{ref}}</td>
+                           <td>{{nom}}</td>
+                           <td>{{fournisseur}}</td>
+                           <td>{{quantite}}</td>
+                           <td>{{prix_uni}}</td>
+                           <td>{{unites_en_stock}}</td>
+                           <td>{{unites_commandees}}</td>
+                           <td>{{niveau_de_reappro}}</td>
+                           <td>{{disponibilite}}</td>
+                           </tr>
+                        {{/records}}
+                        </table>
+                </script>
+                
 
                         <!--<script>
                         
@@ -175,8 +147,8 @@
                         
                         </script>-->
                         
-                    </tr>
-                </table>
+                    
+                
             </div>
         </p>
     </body>

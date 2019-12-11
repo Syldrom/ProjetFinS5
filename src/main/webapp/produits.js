@@ -19,7 +19,7 @@ function showProducts() {
     });
 }
 function showError(xhr,status, message) {
-    alert("Alerte aux gogoles :" + status + ": " + message);
+    alert("Alerte aux gogoles x:" + status + ": " + message);
     
 }
 showProducts();

@@ -46,14 +46,25 @@ public class CategoryController extends HttpServlet {
 		//String action = request.getParameter("action");
 		//action = (action == null) ? "" : action; // Pour le switch qui n'aime pas les null
 		DAO dao = new DAO(DataSourceFactory.getDataSource());
-                List<Category> categories = null ;
+                List<Category> listCategories = null ;
+                List<Product> listProducts = null;
 		try {
-                        categories = dao.allCategory();	
-		} catch (Exception ex) {
+                        String selectedCategory = request.getParameter("categories");
+                        if(null==selectedCategory){
+                            selectedCategory="1";
+                        }
+                        listCategories = dao.allCategory();
+                        listProducts = dao.allProductsByCategory(Integer.parseInt(selectedCategory));
+                        request.setAttribute("categorie",selectedCategory);
+                        request.setAttribute("listCategories", listCategories);
+                        request.setAttribute("listProducts",listProducts);
+                        request.getRequestDispatcher("Categories.jsp").forward(request, response);
+                        
+                } catch (Exception ex) {
 			Logger.getLogger("CategoryController.jsp").log(Level.SEVERE, "Action en erreur", ex);
 			request.setAttribute("message", ex.getMessage());
 		} 
-		try (PrintWriter out = response.getWriter()){
+		/*try (PrintWriter out = response.getWriter()){
                     Properties res = new Properties();
                     res.put("records", categories);
                     response.setContentType("application/json;charset=UTF-8");
@@ -61,7 +72,7 @@ public class CategoryController extends HttpServlet {
                     String gson_data = gson.toJson(res);
                     out.println(gson_data);
                     
-                }
+                }*/
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

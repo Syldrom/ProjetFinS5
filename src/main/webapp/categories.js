@@ -4,15 +4,18 @@
  * and open the template in the editor.
  */
 
-function showCategories() {
+function showCategories(catSelectionnee) {
     $.ajax({
         url: "CategoryController",
+        data:{cat:catSelectionnee},
         dataType:"json",
         success: 
                 function(result) {
+                    var cat = catSelectionnee;
                     var template = $('#CategoryTemplate').html();
-                    var processedTemplate = Mustache.to_html(template,{records: result.records});
+                    var processedTemplate = Mustache.to_html(template,{records: result.records, cat:cat});
                     $('#categories').html(processedTemplate);
+                    console.log(cat);
                     
                 },
         error: showError
@@ -34,7 +37,7 @@ function showProductsByCategories(cat) {
     });
 }
 function showError(xhr,status, message) {
-    alert("Alerte aux gogoles :" + status + ": " + message);
+    alert("Alerte aux gogoles lol:" + status + ": " + message);
     
 }
 

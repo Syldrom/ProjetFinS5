@@ -43,8 +43,8 @@
 
 
                 
-                showCategories();
-                showProductsByCategories(c);
+                //showCategories(${categories});
+               // showProductsByCategories(c);
             });
         </script>
         <div class="header">
@@ -65,18 +65,32 @@
             
         <p>
            <!----------SELECTEUR---------->
-            <select name="categories" id="categories" >
-                <script type="text/template"id ="CategoryTemplate" >
+        <form>
+            <select name="categories" id="categories" onchange='this.form.submit()' >
+                <c:forEach var="cat" items="${listCategories}">
+                    <option value='${cat.code}'
+                        <c:if test="${cat.code eq categorie}">
+                            selected
+                        </c:if>
+                    >${cat.libelle}</option>
+                </c:forEach>
+                <!--<script type="x-tmpl-mustache" id ="CategoryTemplate" >
                     {{#records}}
-                      <option value = {{code}} > {{libelle}} </option>
+                        {{#cat}}
+                            <option value = {{code}} selected > {{libelle}} </option>
+                        {{/cat}}
+                        {{^cat}}
+                            <option value = {{code}} > {{libelle}} X</option>
+                        {{/cat}}
                     {{/records}}
-                </script>
-            </select>        
+                </script>-->
+            </select>    
+        </form>
         </p>
         
         <script>
             
-            document.addEventListener('DOMContentLoaded',function() {
+            /*document.addEventListener('DOMContentLoaded',function() {
                     document.querySelector('select[name="categories"]').onchange=changeEventHandler;
             },false);
             
@@ -86,7 +100,7 @@
                 location.reload(true);
                 window.location.replace("Categories.jsp?categories="+event.target.value);
                 
-            }
+            }**/
             
         </script>
         
@@ -98,7 +112,7 @@
                 <label>Nos produits de la catégorie</label>
                 <div id="products" ></div>
                 
-                    <script id ="ProductTemplate" type="text/template">
+                   <!-- <script id ="ProductTemplate" type="text/template">-->
                         <table border="1">
                         <tr>
                             <th>Référence</th>
@@ -114,26 +128,26 @@
                             <th>Quantité</th>
                             <th>Panier</th>
                         </tr>   
-                        {{#produits}}
+                        <c:forEach var="prod" items="${listProducts}">
                            <tr>
-                           <td>{{ref}}</td>
-                           <td>{{nom}}</td>
-                           <td>{{fournisseur}}</td>
-                           <td>{{quantite}}</td>
-                           <td>{{prix_uni}}</td>
-                           <td>{{unites_en_stock}}</td>
-                           <td>{{unites_commandees}}</td>
-                           <td>{{niveau_de_reappro}}</td>
-                           <td>{{disponibilite}}</td>
+                           <td>${prod.ref}</td>
+                           <td>${prod.nom}</td>
+                           <td>${prod.fournisseur}</td>
+                           <td>${prod.quantite}</td>
+                           <td>${prod.prix_uni}</td>
+                           <td>${prod.unites_en_stock}</td>
+                           <td>${prod.unites_commandees}</td>
+                           <td>${prod.niveau_de_reappro}</td>
+                           <td>${prod.disponibilite}</td>
                            <td><input type="number" name="quantity" min="1" max="{{unites_en_stock}}"></td>
                            <!--{% if {{disponibilite}} == 0 %}-->
                                    
-                                            <td><button type="button value="{{ref}}">Ajouter au Panier</button></td>
+                                           <!-- <td><button type="button value="{{ref}}">Ajouter au Panier</button></td>-->
                            <!--{% else %}-->
                            <!--<td><button type="button value="{{ref}}">Indisponible</button></td>-->
                            <!--{% endif %}-->
                            </tr>
-                        {{/produits}}
+                        </c:forEach>
                         </table>
                 </script>
                 

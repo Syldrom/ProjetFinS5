@@ -46,14 +46,13 @@ public class CategoryController extends HttpServlet {
 		//String action = request.getParameter("action");
 		//action = (action == null) ? "" : action; // Pour le switch qui n'aime pas les null
 		DAO dao = new DAO(DataSourceFactory.getDataSource());
-                List<Category> listCategories = null ;
                 List<Product> listProducts = null;
 		try {
                         String selectedCategory = request.getParameter("categories");
                         if(null==selectedCategory){
                             selectedCategory="1";
                         }
-                        listCategories = dao.allCategory();
+                        List<Category> listCategories = dao.allCategory();
                         listProducts = dao.allProductsByCategory(Integer.parseInt(selectedCategory));
                         request.setAttribute("categorie",selectedCategory);
                         request.setAttribute("listCategories", listCategories);
@@ -66,7 +65,7 @@ public class CategoryController extends HttpServlet {
 		} 
 		/*try (PrintWriter out = response.getWriter()){
                     Properties res = new Properties();
-                    res.put("records", categories);
+                    res.put("records", listProducts);
                     response.setContentType("application/json;charset=UTF-8");
                     Gson gson = new GsonBuilder().setPrettyPrinting().create();
                     String gson_data = gson.toJson(res);

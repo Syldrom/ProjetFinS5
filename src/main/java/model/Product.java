@@ -12,20 +12,20 @@ import java.util.Objects;
  * @author pedago
  */
 public class Product {
-    private int ref;
-    private String nom;
-    private int fournisseur;
-    private int categorie;
-    private String quantite;
-    private float prix_uni;
+    private final int ref;
+    private final String nom;
+    private final int fournisseur;
+    private final int categorie;
+    private final String quantite;
+    private final float prix_uni;
     private int unites_en_stock;
-    private int unites_commandees;
-    private int niveau_de_reappro;
+    private final int unites_commandees;
+    private final int niveau_de_reappro;
     private int disponibilite;
     
     //
-    public Product(int r,String name,int fourni,int cate,String qte,float prix,int stock,int commandees,int reappro,int dispo){
-        this.ref=r;
+    public Product(int ref,String name,int fourni,int cate,String qte,float prix,int stock,int commandees,int reappro,int dispo){
+        this.ref=ref;
         this.nom=name;
         this.fournisseur=fourni;
         this.categorie=cate;

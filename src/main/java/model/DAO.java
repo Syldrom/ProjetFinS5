@@ -15,6 +15,12 @@ import javax.sql.DataSource;
 
 public class DAO {
 
+        public static void main(String[] args) throws SQLException{
+            DAO dao = new DAO(DataSourceFactory.getDataSource());
+            System.out.println(dao.allProductsByCategory(Integer.parseInt("1")));
+            //System.out.println(dao.allCategory());
+        }
+    
 	private final DataSource myDataSource;
 
 	/**
@@ -76,9 +82,9 @@ public class DAO {
                                 int stock = rs.getInt("UNITES_EN_STOCK");
                                 int sales = rs.getInt("UNITES_COMMANDEES");
                                 int restock = rs.getInt("NIVEAU_DE_REAPPRO");
-                                int unvailable = rs.getInt("INDISPONIBLE");
+                                int unavailable = rs.getInt("INDISPONIBLE");
                                 
-                                Product p = new Product(ref,name,four,cate,quantity,price,stock,sales,restock,unvailable);
+                                Product p = new Product(ref,name,four,cate,quantity,price,stock,sales,restock,unavailable);
 				result.add(p);
 			}
 		}

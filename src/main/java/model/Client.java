@@ -22,20 +22,6 @@ public class Client {
     private String telephone;
     private String fax;
     
-    public Client(String cod,String societ,String contact,String fonctio,String addr,String city,String regio,String postal,String country,String tel,String faX){
-        this.code=cod;
-        this.societe=societ;
-        this.contact=contact;
-        this.fonction=fonctio;
-        this.adresse=addr;
-        this.ville=city;
-        this.region=regio;
-        this.code_postal=postal;
-        this.pays=country;
-        this.telephone=tel;
-        this.fax=faX;
-    }
-    
     public String getCode(){
         return this.code;
     }
@@ -79,4 +65,49 @@ public class Client {
     public String getFax(){
         return this.fax;
     }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public void setSociete(String societe) {
+        this.societe = societe;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public void setFonction(String fonction) {
+        this.fonction = fonction;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+
+    public void setVille(String ville) {
+        this.ville = ville;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    public void setCode_postal(String code_postal) {
+        this.code_postal = code_postal;
+    }
+
+    public void setPays(String pays) {
+        this.pays = pays;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public void setFax(String fax) {
+        this.fax = fax;
+    }
+    
 }

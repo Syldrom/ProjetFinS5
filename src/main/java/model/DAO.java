@@ -33,9 +33,40 @@ public class DAO {
 
 	/**
 	 * Contenu de la table PRODUTI
+     * @param login
+     * @param mdp
 	 * @return Liste des produits
-	 * @throws SQLException renvoyées par JDBC
 	 */
+        
+        public Client getClientInfos(String login,String mdp) throws SQLException{
+            
+            Client client = new Client(); 
+            
+            String sql = "SELECT * FROM CLIENT WHERE COD=? AND CONTACT=?";
+		try (Connection connection = myDataSource.getConnection(); 
+		    PreparedStatement stmt = connection.prepareStatement(sql)) {
+                        
+                    stmt.setString(1,login);
+                    stmt.setString(2,mdp);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+                                client.setCode(rs.getString("CODE"));
+                                client.setSociete(rs.getString("SOCIETE"));
+                                client.setContact(rs.getString("CONTACT"));
+                                client.setFonction(rs.getString("FONCTION"));
+                                client.setAdresse(rs.getString("ADRESSE"));
+                                client.setVille(rs.getString("VILLE"));
+                                client.setRegion(rs.getString("REGION"));
+                                client.setCode_postal(rs.getString("CODE_POSTAL"));
+                                client.setPays(rs.getString("PAYS"));
+                                client.setTelephone(rs.getString("TELEPHONE"));
+                                client.setFax(rs.getString("FAX"));
+			}
+		}
+		return client;
+            
+        }
+        
 	public List<Product> allProducts() throws SQLException {
 
 		List<Product> result = new LinkedList<>();

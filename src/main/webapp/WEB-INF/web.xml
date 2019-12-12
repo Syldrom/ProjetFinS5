@@ -5,8 +5,8 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
         <servlet>
-        <servlet-name>LoginController</servlet-name>
-        <servlet-class>controller.LoginController</servlet-class>
+        <servlet-name>ConnectionController</servlet-name>
+        <servlet-class>servlet.ConnectionController</servlet-class>
         <!--<servlet-class>servlet.ConnectionController</servlet-class>-->
         <!-- Les identifiants pour se connecter -->
         <init-param>

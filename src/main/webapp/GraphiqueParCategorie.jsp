@@ -8,9 +8,14 @@
         <title>Graphiques des ventes</title>
         <link rel="stylesheet" href="AdminCSS.css" />
         <link rel="icon" type="image/png" href="Pictures/favicon_admin.ico" />
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<!-- On charge l'API Google -->
-	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="https://kit.fontawesome.com/dd6a857052.js" crossorigin="anonymous"></script>
+        <script>
+            $( document ).ready(function() {
+                console.log( "ready!" );
+                $("#ddmenu").load("Menu.html");
+            });
+        </script>
 	<script type="text/javascript">
 		google.load("visualization", "1", {packages: ["corechart"]});
 
@@ -127,6 +132,8 @@
 	</script>
     </head>
     <body>
+        <div class="topnav" id="ddmenu">
+        </div> 
         <h1> Bienvenue ${userAdmin} </h1>
         <form action="ServletGraphiques" method="POST">   
         Date Début : <input type="date" name="dateDebut"></br>

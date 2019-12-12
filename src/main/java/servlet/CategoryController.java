@@ -48,7 +48,7 @@ public class CategoryController extends HttpServlet {
 		DAO dao = new DAO(DataSourceFactory.getDataSource());
                 List<Product> listProducts = null;
 		try {
-                        String selectedCategory = request.getParameter("categories");
+                        String selectedCategory = request.getParameter("categorie");
                         if(null==selectedCategory){
                             selectedCategory="1";
                         }

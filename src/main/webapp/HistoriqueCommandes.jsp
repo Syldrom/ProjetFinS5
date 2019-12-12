@@ -12,6 +12,14 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="Client.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="https://kit.fontawesome.com/dd6a857052.js" crossorigin="anonymous"></script>
+        <script>
+            $( document ).ready(function() {
+                console.log( "ready!" );
+                $("#ddmenu").load("Menu.html");
+            });
+        </script>
         <title>Panier</title>
     </head>
     <body>   
@@ -25,11 +33,8 @@
         
         <!----------MENU---------->
             
-        <div id="menu">
-            </br><form action="<c:url value="/" />" method="POST" id="deco">
-            <input type='submit' name='action' value='Deconnexion'>
-            </form>  
-        </div>        
+        <div class="topnav" id="ddmenu">
+        </div>       
         
         <p>
             <!-------REQUETE POUR L'HISTORIQUE---------->

@@ -42,12 +42,14 @@ public class ProductController extends HttpServlet {
 		DAO dao = new DAO(DataSourceFactory.getDataSource());
                 List<Product> produits = null ;
 		try {
-                        produits = dao.allProducts();		
+                        produits = dao.allProducts();	
+                        request.setAttribute("listProducts",produits);
+                        request.getRequestDispatcher("Produits.jsp").forward(request, response);
 		} catch (Exception ex) {
 			Logger.getLogger("ProductController.jsp").log(Level.SEVERE, "Action en erreur", ex);
 			request.setAttribute("message", ex.getMessage());
 		} 
-		try (PrintWriter out = response.getWriter()){
+		/*try (PrintWriter out = response.getWriter()){
                     Properties res = new Properties();
                     res.put("records", produits);
                     response.setContentType("application/json;charset=UTF-8");
@@ -55,7 +57,7 @@ public class ProductController extends HttpServlet {
                     String gson_data = gson.toJson(res);
                     out.println(gson_data);
                     
-                }
+                }*/
 		
 	}
 

@@ -12,7 +12,14 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="Client.css" />
         <title>Edition données personnelles</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script src="https://kit.fontawesome.com/dd6a857052.js" crossorigin="anonymous"></script>
+        <script>
+            $( document ).ready(function() {
+                console.log( "ready!" );
+                $("#ddmenu").load("Menu.html");
+            });
+        </script>
     </head>
     <body>   
             
@@ -34,15 +41,7 @@
             
         <!----------MENU---------->
             
-        <div class="topnav">
-            <a href="#produits">Produits</a>
-            <a href="#categories">Categories</a>
-            <div class="topnav-right">
-                <a class="active" href="#compte">Mon Compte</a>
-                <a href="#commandes">Mes Commandes</a>
-                <a href="#panier"><i class="fas fa-shopping-cart"></i></a>
-                <a href="#deco" type='submit' name='action' value='Deconnexion'><!--Deconnexion--><i class="fas fa-sign-out-alt"></i></a>
-            </div>
+        <div class="topnav" id="ddmenu">
         </div>     
         
         <p>

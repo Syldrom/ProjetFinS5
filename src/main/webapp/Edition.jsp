@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:include page="EditionController" />
 <!DOCTYPE html>
 <sql:setDataSource 
 	driver="org.apache.derby.jdbc.ClientDriver"
@@ -30,11 +31,7 @@
             user="app" password="app"
         />
      
-        <!-------REQUETE POUR LE SELECTEUR---------->
         
-        <sql:query var="selecteur" dataSource="${myDS}">
-            SELECT * from CATEGORIE
-        </sql:query>
             <div class="header">
                 <h1>Bienvenue sur Amatoz</h1>
             </div>
@@ -45,119 +42,43 @@
         </div>     
         
         <p>
-            <!-------REQUETE POUR LES INFOS PERSONNELLES---------->
-        
-            <sql:query var="client"   dataSource="${myDS}">
-                SELECT * FROM CLIENT WHERE CLIENT.CODE = '${param.codeClient}'
-            </sql:query>
-                
             <!----------DONNEES---------->
             
             <div class="contenu">
-                <form action="edit">
-                    <c:forEach var="record" items="${client.rows}">
+                <form action="EditionController" id="edit-form" method="post">
                         <label>Société:</label>
-                        <input type="text" name="firstname" value="${record.SOCIETE}">
+                        <input type="text" name="code" value=<c:out value="${client.getCode()}"/>>
                         </br>
                         <label>Contact:</label>
-                        <input type="text" name="lastname" value="${record.CONTACT}">
+                        <input type="text" name="contact" value=<c:out value="${client.getContact()}"/>>
                         </br>
                         <label>Fonction:</label>
-                        <input type="text" name="fonction" value="${record.FONCTION}">
+                        <input type="text" name="fonction" value=<c:out value="${client.getFonction()}"/>>
                         </br>
                         <label>Adresse:</label>
-                        <input type="text" name="adresse" value="${record.ADRESSE}">
+                        <input type="text" name="adresse" value=<c:out value="${client.getAdresse()}"/>>
                         </br>
                         <label>Ville:</label>
-                        <input type="text" name="ville" value="${record.VILLE}">
+                        <input type="text" name="ville" value=<c:out value="${client.getVille()}"/>>
                         </br>
                         <label>Région:</label>
-                        <input type="text" name="region" value="${record.REGION}">
+                        <input type="text" name="region" value=<c:out value="${client.getRegion()}"/>>
                         </br>
                         <label>Code Postal:</label>
-                        <input type="text" name="code_postal" value="${record.CODE_POSTAL}">
+                        <input type="text" name="code_postal" value=<c:out value="${client.getCode_postal()}"/>>
                         </br>
                         <label>Pays:</label>
-                        <input type="text" name="pays" value="${record.PAYS}">
+                        <input type="text" name="pays" value=<c:out value="${client.getPays()}"/>>
                         </br>
                         <label>Téléphone:</label>
-                        <input type="text" name="telephone" value="${record.TELEPHONE}">
+                        <input type="text" name="telephone" value=<c:out value="${client.getTelephone()}"/>>
                         </br>
                         <label>Fax:</label>
-                        <input type="text" name="fax" value="${record.FAX}">
+                        <input type="text" name="fax" value=<c:out value="${client.getFax()}"/>>
                         </br>
                         <br><br>
-                    <input type="submit" value="Enregistrer mes informations" action="ediData">
-                    </c:forEach>
+                        <input type="submit" value="Enregistrer mes informations" name="submit">
                 </form>
             </div>
-        <div>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-        </div>
         </p>
     </body>

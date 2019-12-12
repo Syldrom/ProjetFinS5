@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.System.out;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Properties;
@@ -19,7 +20,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Category;
+import model.Client;
 import model.DAO;
 import model.DataSourceFactory;
 import model.Product;
@@ -46,21 +49,21 @@ public class EditionController extends HttpServlet {
 		//String action = request.getParameter("action");
 		//action = (action == null) ? "" : action; // Pour le switch qui n'aime pas les null
 		DAO dao = new DAO(DataSourceFactory.getDataSource());
-                List<Product> listProducts = null;
+                HttpSession session = request.getSession();
+                Object l = session.getAttribute("login");
+                Object p = session.getAttribute("password");
 		try {
-                        String selectedCategory = request.getParameter("categorie");
-                        if(null==selectedCategory){
-                            selectedCategory="1";
+                        if(null==l & null==p){
+                            p="Maria Anders";
+                            l="ALFKI";
                         }
-                        List<Category> listCategories = dao.allCategory();
-                        listProducts = dao.allProductsByCategory(Integer.parseInt(selectedCategory));
-                        request.setAttribute("categorie",selectedCategory);
-                        request.setAttribute("listCategories", listCategories);
-                        request.setAttribute("listProducts",listProducts);
-                        request.getRequestDispatcher("Categories.jsp").forward(request, response);
+                        Client client;
+                        client = dao.getClientInfos(l.toString(),p.toString());
+                        request.setAttribute("client", client);
+                        request.getRequestDispatcher("Edition.jsp").forward(request, response);
                         
                 } catch (Exception ex) {
-			Logger.getLogger("Controller.jsp").log(Level.SEVERE, "Action en erreur", ex);
+			Logger.getLogger("EditionController.jsp").log(Level.SEVERE, "Action en erreur", ex);
 			request.setAttribute("message", ex.getMessage());
 		} 
 		/*try (PrintWriter out = response.getWriter()){
@@ -102,13 +105,31 @@ public class EditionController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+                String jspView="Edition.jsp";
+                String code =request.getParameter("code");
+                String contact = request.getParameter("contact");
+                String fonction = request.getParameter("fonction");
+                String adresse = request.getParameter("adresse");
+                String ville = request.getParameter("ville");
+                String region = request.getParameter("region");
+                String code_postal = request.getParameter("code_postal");
+                String pays = request.getParameter("pays");
+                String telephone = request.getParameter("telephone");
+                String fax = request.getParameter("fax");
+                DAO dao = new DAO(DataSourceFactory.getDataSource());
         try {
-            processRequest(request, response);
+            if(dao.connexionClient(login, password)){
+                jspView="GraphiqueParCategorie.jsp";
+                response.sendRedirect(jspView);                
+            }
+            
+            //request.getRequestDispatcher(jspView).forward(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(CategoryController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConnectionController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
 
     /**

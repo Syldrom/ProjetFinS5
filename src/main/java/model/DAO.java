@@ -32,17 +32,38 @@ public class DAO {
 	}
 
 	/**
-	 * Contenu de la table PRODUTI
-     * @param login
-     * @param mdp
-	 * @return Liste des produits
-	 */
+	 * Contenu de la table PRODUIT
+        * 
+        * @throws java.sql.SQLException
+	*/
+        
+        public void updateClient(String user,String code,String societe,String contact,String fonction,String adresse,String ville,String region,String code_postal,String pays,String telephone,String fax) throws SQLException{
+            String sql = "UPDATE CLIENT SET CODE=?, SOCIETE=?, CONTACT=?, FONCTION=?,"
+                    + " ADRESSE=?, VILLE=?, REGION=?, CODE_POSTAL=?, PAYS=?, TELEPHONE=?,FAX=?"
+                    + " WHERE CONTACT=?";
+            try (Connection connection = myDataSource.getConnection(); 
+		    PreparedStatement stmt = connection.prepareStatement(sql)) {
+                    stmt.setString(1, code);
+                    stmt.setString(2, societe);
+                    stmt.setString(3, contact);
+                    stmt.setString(4, fonction);
+                    stmt.setString(5, adresse);
+                    stmt.setString(6, ville);
+                    stmt.setString(7, region);
+                    stmt.setString(8, code_postal);
+                    stmt.setString(9, pays);
+                    stmt.setString(10, telephone);
+                    stmt.setString(11, fax);
+            }
+            
+            
+        }
         
         public Client getClientInfos(String login,String mdp) throws SQLException{
             
             Client client = new Client(); 
             
-            String sql = "SELECT * FROM CLIENT WHERE COD=? AND CONTACT=?";
+            String sql = "SELECT * FROM CLIENT WHERE CODE=? AND CONTACT=?";
 		try (Connection connection = myDataSource.getConnection(); 
 		    PreparedStatement stmt = connection.prepareStatement(sql)) {
                         

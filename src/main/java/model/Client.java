@@ -21,50 +21,52 @@ public class Client {
     private String pays;
     private String telephone;
     private String fax;
-    
-    public String getCode(){
-        return this.code;
+
+    public String getCode() {
+        return code;
+    }
+
+    public String getSociete() {
+        return societe;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public String getFonction() {
+        return fonction;
+    }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public String getVille() {
+        return ville;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public String getCode_postal() {
+        return code_postal;
+    }
+
+    public String getPays() {
+        return pays;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public String getFax() {
+        return fax;
     }
     
-    public String getSociety(){
-        return this.societe;
-    }
     
-    public String getContact(){
-        return this.contact;
-    }
-    
-    public String getFunction(){
-        return this.fonction;
-    }
-    
-    public String getAdress(){
-        return this.adresse;
-    }
-    
-    public String getCity(){
-        return this.ville;
-    }
-    
-    public String getRegion(){
-        return this.region;
-    }
-    
-    public String getPostal(){
-        return this.code_postal;
-    }
-    
-    public String getCountry(){
-        return this.pays;
-    }
-    
-    public String getPhone(){
-        return this.telephone;
-    }
-    
-    public String getFax(){
-        return this.fax;
-    }
 
     public void setCode(String code) {
         this.code = code;

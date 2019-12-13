@@ -19,11 +19,16 @@ public class DAO {
 
         public static void main(String[] args) throws SQLException{
             DAO dao = new DAO(DataSourceFactory.getDataSource());
-            System.out.println(dao.allProductsByCategory(Integer.parseInt("1")));
-            for(int i=0;i<4;i++){
-                System.out.println(dao.clientOrders("ALFKI").get(i));
+            try {
+                //System.out.println(dao.allProductsByCategory(Integer.parseInt("1")));
+                dao.updateClient("ALFKI", "ALFKI", "Alfreds Futterkiste", "Maria Anders",
+                        "Représentant(e)", "Obere Str. 57", "Berlintoz", "test",
+                        "12209", "Allemagne", "030-0074321", "030-0076545");
+                out.println("ok");
+                //System.out.println(dao.allCategory());
+            } catch (Exception ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
             }
-            //System.out.println(dao.allCategory());
         }
     
 	private final DataSource myDataSource;
@@ -62,7 +67,6 @@ public class DAO {
                     stmt.setString(12, user);
                     
                     int res = stmt.executeUpdate();
-                    
                     out.println(res);
             }catch(Exception e){
                 throw new Exception("Erreur : "+e.getMessage());

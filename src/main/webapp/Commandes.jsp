@@ -33,22 +33,17 @@
         </div>
         <div class="topnav" id="ddmenu">
         </div> 
-            <!--<label for="qnt"> Quantite :</label>
-            <input name="quantite" /></br>
-            <label for="fdp"> Frais de port :</label>
-            <input name="fraisport" /></br>
-            <label for="dateA"> Date d'achat</label>
-            <input type="date" name="dateAchat" /></br>
-            <label for="dateL"> Date de livraison</label>
-            <input type="date" name="dateLivraison" /></br>
-            
-            </br><input type="submit" name="action" value="Commander"/>
-            </fieldset>-->
+        <div>
+                <label>Login : <c:out value="${login}"/></label>
+                </br>
+                <label>Password : <c:out value="${password}"/></label>
+        </div>
           
                 
         
                 </br>
         <div align=center">
+            <!--list<c:out value="${listOrders}"/>-->
             <table border="1">
                 <tr>
                     <th>Numéro de Commande</th>

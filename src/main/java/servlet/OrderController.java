@@ -44,19 +44,25 @@ public class OrderController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         DAO dao = new DAO(DataSourceFactory.getDataSource());
         HttpSession session = request.getSession();
-        List<Order> listOrders ;
-        Object cli = session.getAttribute("password");                        
+        List<Order> listOrders ; 
+        Object login = null;
+        Object password = null;
 		try {
-                        if(null==cli){
-                            cli="ALFKI";
+                        login = request.getParameter("login");
+                        password = request.getParameter("password");
+                        out.println("PASSWORD ICI : "+password);
+                        out.println("PASSWORD DE SESSION : "+session.getAttribute("password"));
+                        if(null==password){
+                            password="ALFKI";
                         }
-                        listOrders = dao.clientOrders((String) cli);
+                        listOrders = dao.clientOrders(password.toString());
                         out.println("CHECK ICI");
                         out.println(listOrders.get(0).getAdresse_livraison());
                         request.setAttribute("listOrders",listOrders);
                         request.getRequestDispatcher("Commandes.jsp").forward(request, response);
                         
                 } catch (Exception ex) {
+                    out.println("Password:"+request.getParameter("password"));
 			Logger.getLogger("Commandes.jsp").log(Level.SEVERE, "Action en erreur", ex);
 			request.setAttribute("message", ex.getMessage());
 		} 

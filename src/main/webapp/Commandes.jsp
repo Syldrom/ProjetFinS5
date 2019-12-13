@@ -65,11 +65,21 @@
                     <th>Pays</th>
                     <th>Remise</th>
 
-                    <c:out value="${test}"/>
-
-                    <c:forEach var="record" items="${listOrders.rows}">
+                    <c:forEach var="order" items="${listOrders}">
                     <tr>
-                        <td>${record.client}</td>
+                        <td>${order.numero}</td>
+                        <td>${order.client}</td>
+                        <td>${order.saisie}</td>
+                        <td>${order.envoi}</td>
+                        <td>${order.port}</td>
+                        <td>${order.destinataire}</td>
+                        <td>${order.adresse_livraison}</td>
+                        <td>${order.ville_livraison}</td>
+                        <td>${order.region_livraison}</td>
+                        <td>${order.code_postal}</td>
+                        <td>${order.pays}</td>
+                        <td>${order.remise}</td>
+                        
                     </tr>
                     </c:forEach>
                 </tr>

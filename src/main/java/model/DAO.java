@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
@@ -19,6 +20,9 @@ public class DAO {
         public static void main(String[] args) throws SQLException{
             DAO dao = new DAO(DataSourceFactory.getDataSource());
             System.out.println(dao.allProductsByCategory(Integer.parseInt("1")));
+            for(int i=0;i<4;i++){
+                System.out.println(dao.clientOrders("ALFKI").get(i));
+            }
             //System.out.println(dao.allCategory());
         }
     
@@ -187,7 +191,7 @@ public class DAO {
 		}
         }
         public List<Order> clientOrders(String cli) throws SQLException {
-                List<Order> result = new LinkedList<>();
+                List<Order> result = new ArrayList<Order>();
                 
                 String sql = "SELECT * FROM COMMANDE WHERE CLIENT=?";
                 try (Connection connection = myDataSource.getConnection(); 
@@ -195,21 +199,6 @@ public class DAO {
                         stmt.setString(1, cli);
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
-                            
-                            /*o.setAdresse_livraison(rs.getString("ADRESSE_LIVRAISON"));
-                            o.setClient(rs.getString("CLIENT"));
-                            o.setCode_postal(rs.getString("CODE_POSTAL_LIVRAIS"));
-                            o.setDestinataire(rs.getString("DESTINATAIRE"));
-                            o.setEnvoi(rs.getDate("ENVOYEE_LE"));
-                            o.setNumero(rs.getInt("NUMERO"));
-                            o.setPays(rs.getString("PAYS_LIVRAISON"));
-                            o.setPort(rs.getFloat("PORT"));
-                            o.setRegion_livraison(rs.getString("REGION_LIVRAISON"));
-                            o.setRemise(rs.getFloat("REMISE"));
-                            o.setSaisie(rs.getDate("SAISIE_LE"));
-                            o.setVille_livraison(rs.getString("VILLE_LIVRAISON"));*/
-                            
-                            
                             
                                 int numero = rs.getInt("NUMERO");
                                 String client = rs.getString("CLIENT");

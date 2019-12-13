@@ -18,10 +18,10 @@ public class Product {
     private final int categorie;
     private final String quantite;
     private final float prix_uni;
-    private int unites_en_stock;
+    private final int unites_en_stock;
     private final int unites_commandees;
     private final int niveau_de_reappro;
-    private int disponibilite;
+    private final int disponibilite;
     
     //
     public Product(int ref,String name,int fourni,int cate,String qte,float prix,int stock,int commandees,int reappro,int dispo){
@@ -38,25 +38,7 @@ public class Product {
     }
     
     //TRANSFORMATEURS
-    public void setStock(int s){
-        this.unites_en_stock=s;
-    }
     
-    public void decremStock(int s){
-        this.unites_en_stock-=s;
-    }
-    
-    public void setIndisponible(){
-        this.disponibilite=1;
-    }
-    
-    public void setDisponible(){
-        this.disponibilite=0;
-    }
-    
-    public boolean isDisponible(){
-        return this.disponibilite==0;
-    }
     
     public int getRef(){
         return this.ref;

@@ -107,8 +107,15 @@ public class EditionController extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+                
+                HttpSession session=request.getSession();
+                String password = null;
+                String login = null;
+                
                 String jspView="Edition.jsp";
+                String user = request.getParameter("code");
                 String code =request.getParameter("code");
+                String societe = request.getParameter("societe");
                 String contact = request.getParameter("contact");
                 String fonction = request.getParameter("fonction");
                 String adresse = request.getParameter("adresse");
@@ -118,16 +125,20 @@ public class EditionController extends HttpServlet {
                 String pays = request.getParameter("pays");
                 String telephone = request.getParameter("telephone");
                 String fax = request.getParameter("fax");
+                
                 DAO dao = new DAO(DataSourceFactory.getDataSource());
         try {
-            if(dao.connexionClient(login, password)){
-                jspView="GraphiqueParCategorie.jsp";
-                response.sendRedirect(jspView);                
-            }
             
+            dao.updateClient(user,code,societe,contact,fonction,adresse,ville,region,code_postal,pays,telephone,fax);
+            
+            jspView="Edition.jsp";
+            processRequest(request, response);
+            
+            
+        
             //request.getRequestDispatcher(jspView).forward(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(ConnectionController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(EditionController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }

@@ -1,5 +1,6 @@
 package model;
 
+import static java.lang.System.out;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -37,7 +38,7 @@ public class DAO {
         * @throws java.sql.SQLException
 	*/
         
-        public void updateClient(String user,String code,String societe,String contact,String fonction,String adresse,String ville,String region,String code_postal,String pays,String telephone,String fax) throws SQLException{
+        public void updateClient(String user,String code,String societe,String contact,String fonction,String adresse,String ville,String region,String code_postal,String pays,String telephone,String fax) throws SQLException, Exception{
             String sql = "UPDATE CLIENT SET CODE=?, SOCIETE=?, CONTACT=?, FONCTION=?,"
                     + " ADRESSE=?, VILLE=?, REGION=?, CODE_POSTAL=?, PAYS=?, TELEPHONE=?,FAX=?"
                     + " WHERE CONTACT=?";
@@ -54,6 +55,13 @@ public class DAO {
                     stmt.setString(9, pays);
                     stmt.setString(10, telephone);
                     stmt.setString(11, fax);
+                    stmt.setString(12, user);
+                    
+                    int res = stmt.executeUpdate();
+                    
+                    out.println(res);
+            }catch(Exception e){
+                throw new Exception("Erreur : "+e.getMessage());
             }
             
             
@@ -178,6 +186,50 @@ public class DAO {
                     return result;
 		}
         }
+        public List<Order> clientOrders(String cli) throws SQLException {
+                List<Order> result = new LinkedList<>();
+                
+                String sql = "SELECT * FROM COMMANDE WHERE CLIENT=?";
+                try (Connection connection = myDataSource.getConnection(); 
+		     PreparedStatement stmt = connection.prepareStatement(sql)) {
+                        stmt.setString(1, cli);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+                            
+                            /*o.setAdresse_livraison(rs.getString("ADRESSE_LIVRAISON"));
+                            o.setClient(rs.getString("CLIENT"));
+                            o.setCode_postal(rs.getString("CODE_POSTAL_LIVRAIS"));
+                            o.setDestinataire(rs.getString("DESTINATAIRE"));
+                            o.setEnvoi(rs.getDate("ENVOYEE_LE"));
+                            o.setNumero(rs.getInt("NUMERO"));
+                            o.setPays(rs.getString("PAYS_LIVRAISON"));
+                            o.setPort(rs.getFloat("PORT"));
+                            o.setRegion_livraison(rs.getString("REGION_LIVRAISON"));
+                            o.setRemise(rs.getFloat("REMISE"));
+                            o.setSaisie(rs.getDate("SAISIE_LE"));
+                            o.setVille_livraison(rs.getString("VILLE_LIVRAISON"));*/
+                            
+                            
+                            
+                                int numero = rs.getInt("NUMERO");
+                                String client = rs.getString("CLIENT");
+                                Date saisie = rs.getDate("SAISIE_LE"); 
+                                Date envoi = rs.getDate("ENVOYEE_LE");
+                                float port = rs.getFloat("PORT");
+                                String destinataire = rs.getString("DESTINATAIRE");
+                                String addresse_livraison = rs.getString("ADRESSE_LIVRAISON");
+                                String ville_livraison = rs.getString("VILLE_LIVRAISON");
+                                String region_livraison = rs.getString("REGION_LIVRAISON");
+                                String code_postal_livraison = rs.getString("CODE_POSTAL_LIVRAIS");
+                                String pays_livraison = rs.getString("PAYS_LIVRAISON");
+                                float remise = rs.getFloat("REMISE");
+                                
+                                Order o = new Order(numero, client, saisie, envoi, port, destinataire, addresse_livraison, ville_livraison, region_livraison, code_postal_livraison, pays_livraison, remise);
+				result.add(o);
+			}
+                    return result;
+		}
+        }
         public List<Order> allOrders() throws SQLException {
                 List<Order> result = new LinkedList<>();
                 
@@ -196,7 +248,7 @@ public class DAO {
                                 String address = rs.getString("ADRESSE_LIVRAISON");
                                 String city = rs.getString("VILLE_LIVRAISON");
                                 String district = rs.getString("REGION_LIVRAISON");
-                                String pc = rs.getString("CODE_POSTAL_LIVRAISON");
+                                String pc = rs.getString("CODE_POSTAL_LIVRAIS");
                                 String country = rs.getString("PAYS_LIVRAISON");
                                 float discount = rs.getFloat("REMISE");
                                 

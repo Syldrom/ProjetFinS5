@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:include page="OrderController" />
 <!DOCTYPE html>
 <sql:setDataSource 
         var="myDS"
@@ -26,9 +27,7 @@
     <body>
 
      
-        <sql:query var="commande"   dataSource="${myDS}">
-            SELECT * FROM COMMANDE
-        </sql:query>
+        
         <div class="header">
             <h1>Bienvenue sur Amatoz</h1>
         </div>
@@ -66,22 +65,11 @@
                     <th>Pays</th>
                     <th>Remise</th>
 
+                    <c:out value="${test}"/>
 
-
-                    <c:forEach var="record" items="${commande.rows}">
+                    <c:forEach var="record" items="${listOrders.rows}">
                     <tr>
-                        <td>${record.NUMERO}</td>
-                        <td>${record.CLIENT}</td>
-                        <td>${record.SAISIE_LE}</td>
-                        <td>${record.ENVOYEE_LE}</td>
-                        <td>${record.PORT}</td>
-                        <td>${record.DESTINATAIRE}</td>
-                        <td>${record.ADRESSE_LIVRAISON}</td>
-                        <td>${record.VILLE_LIVRAISON}</td>
-                        <td>${record.REGION_LIVRAISON}</td>
-                        <td>${record.CODE_POSTAL_LIVRAIS}</td>
-                        <td>${record.PAYS_LIVRAISON}</td>
-                         <td>${record.REMISE}</td>
+                        <td>${record.client}</td>
                     </tr>
                     </c:forEach>
                 </tr>

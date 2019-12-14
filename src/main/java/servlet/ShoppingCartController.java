@@ -31,8 +31,8 @@ import model.Product;
  *
  * @author pedago
  */
-@WebServlet(name = "EditionController", urlPatterns = {"/EditionController"})
-public class EditionController extends HttpServlet {
+@WebServlet(name = "ShoppingCartController", urlPatterns = {"/ShoppingCartController"})
+public class ShoppingCartController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -62,7 +62,7 @@ public class EditionController extends HttpServlet {
                         //request.getRequestDispatcher("Edition.jsp").forward(request, response);
                         
                 } catch (Exception ex) {
-			Logger.getLogger("EditionController.jsp").log(Level.SEVERE, "Action en erreur", ex);
+			Logger.getLogger("ShoppingCartController.jsp").log(Level.SEVERE, "Action en erreur", ex);
 			request.setAttribute("message", ex.getMessage());
 		} 
 
@@ -98,31 +98,11 @@ public class EditionController extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {                
-
-                String jspView="Edition.jsp";
-                String user = request.getParameter("contact");
-                String code =request.getParameter("code");
-                String societe = request.getParameter("societe");               
-                String contact = request.getParameter("contact");
-                String fonction = request.getParameter("fonction");               
-                String adresse = request.getParameter("adresse");
-                String ville = request.getParameter("ville");
-                String region = request.getParameter("region");
-                String code_postal = request.getParameter("code_postal");
-                String pays = request.getParameter("pays");
-                String telephone = request.getParameter("telephone");
-                String fax = request.getParameter("fax");
-                
-                DAO dao = new DAO(DataSourceFactory.getDataSource());
-        try {            
-            dao.updateClient(user, code, societe, contact, fonction, adresse, ville, region, code_postal, pays, telephone, fax);            
-            request.getRequestDispatcher("Produits.jsp").forward(request, response);
-        } catch (Exception ex) {
-            Logger.getLogger(EditionController.class.getName()).log(Level.SEVERE, null, ex);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(ShoppingCartController.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
-        
-        
     }
 
     /**

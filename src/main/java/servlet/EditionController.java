@@ -103,9 +103,7 @@ public class EditionController extends HttpServlet {
                 String code =request.getParameter("code");
                 String societe = request.getParameter("societe");               
                 String contact = request.getParameter("contact");
-                String fonction = request.getParameter("fonction");
-                out.println("fonction : "+fonction);
-                
+                String fonction = request.getParameter("fonction");               
                 String adresse = request.getParameter("adresse");
                 String ville = request.getParameter("ville");
                 String region = request.getParameter("region");

@@ -68,38 +68,36 @@ public class ConnectionController extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
                 HttpSession session=request.getSession();  
-
-                String jspView="/";
+                String jspView="Produits.jsp";
                 String password = null;
                 String login = null;
                 DAO dao = new DAO(DataSourceFactory.getDataSource());
         try {
-            String loginAdmin = getInitParameter("loginAdmin"); 
-            out.println(loginAdmin);        
-            String passwordAdmin = getInitParameter("passwordAdmin");
-            out.println(passwordAdmin);
+            String loginAdmin = getInitParameter("loginAdmin");             
+            String passwordAdmin = getInitParameter("passwordAdmin");       
             login = request.getParameter("login");
             password = request.getParameter("password");
             
-            if(dao.connexionClient(login, password)){
+            if(dao.connexionClient(login, password) ){
                 session.setAttribute("login",login);
                 session.setAttribute("password",password);
-                jspView="GraphiqueParCategorie.jsp";
-                response.sendRedirect(jspView); 
+                
+                request.getRequestDispatcher(jspView).forward(request, response);
                                
             }
             else if (login.equals(loginAdmin)&&password.equals(passwordAdmin)) {
                 session.setAttribute("login",loginAdmin);
                 session.setAttribute("password",passwordAdmin);
-                jspView="Produits.jsp";
-                response.sendRedirect("Produits.jsp");
+                
+                request.getRequestDispatcher(jspView).forward(request, response);
             }
             else{
+                jspView="Connexion.jsp";
                 session.setAttribute("login",null);
                 session.setAttribute("password",password);
-                String error = "Sorry, username or password error!";
+                String error = "Connexion échouée : nom ou mot de passe érroné !";
                 request.setAttribute("message",error);             
-                request.getRequestDispatcher("Connexion.jsp").forward(request, response);
+                request.getRequestDispatcher(jspView).forward(request, response);
             }   
             
             
@@ -108,6 +106,17 @@ public class ConnectionController extends HttpServlet {
             Logger.getLogger(ConnectionController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+                HttpSession session=request.getSession();  
+                session.removeAttribute("login");
+                session.removeAttribute("password");
+                            
+                response.sendRedirect("Connexion.jsp");
+        
+    }
+    
 
 
     /**

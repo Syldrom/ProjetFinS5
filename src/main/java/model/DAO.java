@@ -47,9 +47,9 @@ public class DAO {
         * @throws java.sql.SQLException
 	*/
         
-        public void updateClient(String user,String code,String societe,String contact,String fonction,String adresse,String ville,String region,String code_postal,String pays,String telephone,String fax) throws SQLException, Exception{
+        public void updateClient(String user,String code,String societe,String contact,String fonction,String adresse,String ville,String region,String code_postal,String pays,String telephone,String fax) throws SQLException{
             String sql = "UPDATE CLIENT SET CODE=?, SOCIETE=?, CONTACT=?, FONCTION=?,"
-                    + " ADRESSE=?, VILLE=?, REGION=?, CODE_POSTAL=?, PAYS=?, TELEPHONE=?,FAX=?"
+                    +" ADRESSE=?, VILLE=?, REGION=?, CODE_POSTAL=?, PAYS=?, TELEPHONE=?,FAX=?"
                     + " WHERE CONTACT=?";
             try (Connection connection = myDataSource.getConnection(); 
 		    PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -66,10 +66,12 @@ public class DAO {
                     stmt.setString(11, fax);
                     stmt.setString(12, user);
                     
-                    int res = stmt.executeUpdate();
-                    out.println(res);
-            }catch(Exception e){
-                throw new Exception("Erreur : "+e.getMessage());
+                    stmt.executeUpdate();
+                   
+                    stmt.close();
+
+            }catch(SQLException e){
+                throw new SQLException("Erreur : "+e.getMessage());
             }
             
             
@@ -79,14 +81,14 @@ public class DAO {
             
             Client client = new Client(); 
             
-            String sql = "SELECT * FROM CLIENT WHERE CODE=? AND CONTACT=?";
+            String sql = "SELECT * FROM CLIENT WHERE CODE=? AND CONTACT =?";
 		try (Connection connection = myDataSource.getConnection(); 
 		    PreparedStatement stmt = connection.prepareStatement(sql)) {
-                        
-                    stmt.setString(1,login);
-                    stmt.setString(2,mdp);
+
+                        stmt.setString(1,mdp);
+                        stmt.setString(2,login);
 			ResultSet rs = stmt.executeQuery();
-			while (rs.next()) {
+			if (rs.next()) {
                                 client.setCode(rs.getString("CODE"));
                                 client.setSociete(rs.getString("SOCIETE"));
                                 client.setContact(rs.getString("CONTACT"));

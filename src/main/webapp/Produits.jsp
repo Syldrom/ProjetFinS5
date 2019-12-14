@@ -31,59 +31,48 @@
         </div> 
         
                 <div id="products"></div>
-                    <table border="1">
+                    <table class="table text-center">
+                        <thead>
                             <tr>
-                                <th>Référence</th>
-                                <th>Nom</th>
-                                <th>Fournisseur</th>
+                                <th scope="col">Référence</th>
+                                <th scope="col">Nom</th>
+                                <th scope="col">Fournisseur</th>
                                 <!--<th>Categorie</th>-->
-                                <th>Quantité par unité</th>
-                                <th>Prix unitaire</th>
-                                <th>Stock</th>
+                                <th scope="col">Quantité par unité</th>
+                                <th scope="col">Prix unitaire</th>
+                                <th scope="col">Stock</th>
                                 <!--<th>Commandées</th>
                                 <th>Réappro</th>
                                 <th>Indisponible</th>-->
-                                <th>Quantité</th>
-                                <th>Panier</th>
+                                <th scope="col">Quantité</th>
+                                <th scope="col">Panier</th>
                             </tr>
-                            <c:forEach var="prod" items="${listProducts}">
-                                <tr>
+                        </thead>
+                        <c:forEach var="prod"items="${listProducts}">
+                            
+                            <c:remove var="disabledTable"></c:remove>
+                            <c:remove var="disabledItem"></c:remove>
+                            <c:set var="addItem" value="Ajouter au Panier"></c:set>
+                            <c:if test="${prod.stock==0}">
+                                <c:set var="disabledTable" value="table-secondary"></c:set>
+                                <c:set var="addItem" value="Épuisé"></c:set>
+                                <c:set var="disabledItem" value="disabled"></c:set> 
+                            </c:if> 
+                                <tr class="${disabledTable}">
                                     <td>${prod.ref}</td>
                                     <td>${prod.name}</td>
                                     <td>${prod.fournisseur}</td>
                                     <td>${prod.quantity}</td>
                                     <td>${prod.price}</td>
                                     <td>${prod.stock}</td>
-                                    <td><input type="number" name="qte" min="1" max="${prod.stock}"></td>
-                                    <td><button type="button">Ajouter au panier</button></td>
+                                    <td><input type="number" name="qte" min="0" max="${prod.stock}" ${disabledItem}></td>
+                                    <td><button type="button" ${disabledItem}>${addItem}</button></td>
                                 </tr>
                             </c:forEach>
                                 <!--<td>${prod.unites_commandees}</td>
                                     <td>${prod.niveau_de_reappro}</td>
                                     <td>${prod.disponibilite}</td>-->
                         </table>
-                <!--<script id ="ProductTemplate" type="text/template">
-                <table class="table table-hover">
-                    {{#records}}
-                       <TR><TD> {{nom}}</TD>
-                       <TD> {{quantite}}</TD>
-                       <TD> {{prix_uni}}</TD>
-                       <TD> {{disponibilite}} </TD>
-                       <td>
-                       <div class="btn-group" role="group">
-                        <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Dropdown
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                        <a class="dropdown-item" >Dropdown link</a>
-                        <a class="dropdown-item" >Dropdown link</a>
-                        </div>
-                        </div></td>
-                       </TR>
-                    {{/records}}
-                    </table>
-                </script>-->
-                <!--<script type="text/javascript" src="produits.js"></script>-->
                 
 
     </body>

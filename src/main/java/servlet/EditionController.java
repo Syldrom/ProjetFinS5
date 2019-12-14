@@ -50,15 +50,13 @@ public class EditionController extends HttpServlet {
 		//action = (action == null) ? "" : action; // Pour le switch qui n'aime pas les null
 		DAO dao = new DAO(DataSourceFactory.getDataSource());
                 HttpSession session = request.getSession();
-                Object l = session.getAttribute("login");
-                Object p = session.getAttribute("password");
+                String login = null;
+                String password = null;                
+
 		try {
-                        if(null==l & null==p){
-                            p="Maria Anders";
-                            l="ALFKI";
-                        }
-                        Client client;
-                        client = dao.getClientInfos(l.toString(),p.toString());
+                        login = (String) session.getAttribute("login");
+                        password = (String) session.getAttribute("password");
+                        Client client = dao.getClientInfos(login,password);                      
                         request.setAttribute("client", client);
                         request.getRequestDispatcher("Edition.jsp").forward(request, response);
                         
@@ -66,15 +64,7 @@ public class EditionController extends HttpServlet {
 			Logger.getLogger("EditionController.jsp").log(Level.SEVERE, "Action en erreur", ex);
 			request.setAttribute("message", ex.getMessage());
 		} 
-		/*try (PrintWriter out = response.getWriter()){
-                    Properties res = new Properties();
-                    res.put("records", listProducts);
-                    response.setContentType("application/json;charset=UTF-8");
-                    Gson gson = new GsonBuilder().setPrettyPrinting().create();
-                    String gson_data = gson.toJson(res);
-                    out.println(gson_data);
-                    
-                }*/
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -91,7 +81,7 @@ public class EditionController extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(CategoryController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -106,14 +96,10 @@ public class EditionController extends HttpServlet {
      */
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-                
-                HttpSession session=request.getSession();
-                String password = null;
-                String login = null;
-                
+            throws ServletException, IOException {                
+                out.println("region = "+request.getParameter("region"));
                 String jspView="Edition.jsp";
-                String user = request.getParameter("code");
+                String user = request.getParameter("contact");
                 String code =request.getParameter("code");
                 String societe = request.getParameter("societe");
                 String contact = request.getParameter("contact");
@@ -128,18 +114,15 @@ public class EditionController extends HttpServlet {
                 
                 DAO dao = new DAO(DataSourceFactory.getDataSource());
         try {
+            out.println("société = "+societe);
+            dao.updateClient(user, code, societe, contact, fonction, adresse, ville, region, code_postal, pays, telephone, fax);
             
-            dao.updateClient(user,code,societe,contact,fonction,adresse,ville,region,code_postal,pays,telephone,fax);
-            
-            jspView="Edition.jsp";
-            processRequest(request, response);
-            
-            
-        
-            //request.getRequestDispatcher(jspView).forward(request, response);
+            request.getRequestDispatcher(jspView).forward(request, response);
         } catch (Exception ex) {
             Logger.getLogger(EditionController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        request.getRequestDispatcher(jspView).forward(request, response);
+        
         
     }
 

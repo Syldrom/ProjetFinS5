@@ -45,19 +45,10 @@ public class OrderController extends HttpServlet {
         DAO dao = new DAO(DataSourceFactory.getDataSource());
         HttpSession session = request.getSession();
         List<Order> listOrders ; 
-        Object login = null;
-        Object password = null;
+        String password = null;
 		try {
-                        login = request.getParameter("login");
-                        password = request.getParameter("password");
-                        out.println("PASSWORD ICI : "+password);
-                        out.println("PASSWORD DE SESSION : "+session.getAttribute("password"));
-                        if(null==password){
-                            password="ALFKI";
-                        }
-                        listOrders = dao.clientOrders(password.toString());
-                        out.println("CHECK ICI");
-                        out.println(listOrders.get(0).getAdresse_livraison());
+                        password = (String) session.getAttribute("password");
+                        listOrders = dao.clientOrders(password);
                         request.setAttribute("listOrders",listOrders);
                         request.getRequestDispatcher("Commandes.jsp").forward(request, response);
                         

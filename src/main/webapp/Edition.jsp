@@ -45,36 +45,41 @@
             <!----------DONNEES---------->
             
             <div class="contenu">
-                <form action="EditionController" id="edit-form" method="post">
+                <form action="EditionController" id="edit-form" method="POST" >
+                        
+                        
+                        <label>Code :</label>
+                        <input type="text" name="code" value="${client.getCode()}"/>
+                        </br>
                         <label>Société:</label>
-                        <input type="text" name="code" value=<c:out value="${client.getCode()}"/>>
+                        <input type="text" name="societe" value="${client.getSociete()}"/>
                         </br>
                         <label>Contact:</label>
-                        <input type="text" name="contact" value=<c:out value="${client.getContact()}"/>>
+                        <input type="text" name="contact" value="${client.getContact()}"/>
                         </br>
                         <label>Fonction:</label>
-                        <input type="text" name="fonction" value=<c:out value="${client.getFonction()}"/>>
+                        <input type="text" name="fonction" value="${client.getFonction()}"/>
                         </br>
                         <label>Adresse:</label>
-                        <input type="text" name="adresse" value=<c:out value="${client.getAdresse()}"/>>
+                        <input type="text" name="adresse" value="${client.getAdresse()}"/>
                         </br>
                         <label>Ville:</label>
-                        <input type="text" name="ville" value=<c:out value="${client.getVille()}"/>>
+                        <input type="text" name="ville" value="${client.getVille()}"/>
                         </br>
                         <label>Région:</label>
-                        <input type="text" name="region" value=<c:out value="${client.getRegion()}"/>>
+                        <input type="text" name="region" value="${client.getRegion()}"/>
                         </br>
                         <label>Code Postal:</label>
-                        <input type="text" name="code_postal" value=<c:out value="${client.getCode_postal()}"/>>
+                        <input type="text" name="code_postal" value="${client.getCode_postal()}"/>
                         </br>
                         <label>Pays:</label>
-                        <input type="text" name="pays" value=<c:out value="${client.getPays()}"/>>
+                        <input type="text" name="pays" value="${client.getPays()}"/>
                         </br>
                         <label>Téléphone:</label>
-                        <input type="text" name="telephone" value=<c:out value="${client.getTelephone()}"/>>
+                        <input type="text" name="telephone" value="${client.getTelephone()}"/>
                         </br>
                         <label>Fax:</label>
-                        <input type="text" name="fax" value=<c:out value="${client.getFax()}"/>>
+                        <input type="text" name="fax" value="${client.getFax()}"/>
                         </br>
                         <br><br>
                         <input type="submit" value="Enregistrer mes informations" name="submit">

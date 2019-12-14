@@ -13,6 +13,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="Client.css" />
         <title>Edition données personnelles</title>
+        <meta charset="utf-8">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script src="https://kit.fontawesome.com/dd6a857052.js" crossorigin="anonymous"></script>
         <script>

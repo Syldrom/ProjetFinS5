@@ -58,7 +58,7 @@ public class EditionController extends HttpServlet {
                         password = (String) session.getAttribute("password");
                         Client client = dao.getClientInfos(login,password);                      
                         request.setAttribute("client", client);
-                        request.getRequestDispatcher("Edition.jsp").forward(request, response);
+                        //request.getRequestDispatcher("Edition.jsp").forward(request, response);
                         
                 } catch (Exception ex) {
 			Logger.getLogger("EditionController.jsp").log(Level.SEVERE, "Action en erreur", ex);
@@ -97,13 +97,15 @@ public class EditionController extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {                
-                out.println("region = "+request.getParameter("region"));
+
                 String jspView="Edition.jsp";
                 String user = request.getParameter("contact");
                 String code =request.getParameter("code");
-                String societe = request.getParameter("societe");
+                String societe = request.getParameter("societe");               
                 String contact = request.getParameter("contact");
                 String fonction = request.getParameter("fonction");
+                out.println("fonction : "+fonction);
+                
                 String adresse = request.getParameter("adresse");
                 String ville = request.getParameter("ville");
                 String region = request.getParameter("region");
@@ -113,15 +115,13 @@ public class EditionController extends HttpServlet {
                 String fax = request.getParameter("fax");
                 
                 DAO dao = new DAO(DataSourceFactory.getDataSource());
-        try {
-            out.println("société = "+societe);
-            dao.updateClient(user, code, societe, contact, fonction, adresse, ville, region, code_postal, pays, telephone, fax);
-            
-            request.getRequestDispatcher(jspView).forward(request, response);
+        try {            
+            dao.updateClient(user, code, societe, contact, fonction, adresse, ville, region, code_postal, pays, telephone, fax);            
+            request.getRequestDispatcher("Produits.jsp").forward(request, response);
         } catch (Exception ex) {
             Logger.getLogger(EditionController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        request.getRequestDispatcher(jspView).forward(request, response);
+       
         
         
     }

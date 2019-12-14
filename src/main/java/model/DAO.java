@@ -66,8 +66,7 @@ public class DAO {
                     stmt.setString(11, fax);
                     stmt.setString(12, user);
                     
-                    stmt.executeUpdate();
-                   
+                    stmt.executeUpdate();                  
                     stmt.close();
 
             }catch(SQLException e){

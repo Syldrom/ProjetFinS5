@@ -36,28 +36,17 @@ public class ProductController extends HttpServlet {
 	 */
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException, SQLException {
-		// Quelle action a servi à appeler la servlet ? (Ajouter, Supprimer ou aucune = afficher)
-		//String action = request.getParameter("action");
-		//action = (action == null) ? "" : action; // Pour le switch qui n'aime pas les null
+
 		DAO dao = new DAO(DataSourceFactory.getDataSource());
                 List<Product> produits = null ;
 		try {
                         produits = dao.allProducts();	
                         request.setAttribute("listProducts",produits);
-                        request.getRequestDispatcher("Produits.jsp").forward(request, response);
 		} catch (Exception ex) {
 			Logger.getLogger("ProductController.jsp").log(Level.SEVERE, "Action en erreur", ex);
 			request.setAttribute("message", ex.getMessage());
 		} 
-		/*try (PrintWriter out = response.getWriter()){
-                    Properties res = new Properties();
-                    res.put("records", produits);
-                    response.setContentType("application/json;charset=UTF-8");
-                    Gson gson = new GsonBuilder().setPrettyPrinting().create();
-                    String gson_data = gson.toJson(res);
-                    out.println(gson_data);
-                    
-                }*/
+
 		
 	}
 

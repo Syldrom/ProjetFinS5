@@ -80,8 +80,13 @@ public class ProductController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
+                request.setCharacterEncoding("UTF-8");
+                DAO dao = new DAO(DataSourceFactory.getDataSource());
+                String jspView="Produits.jsp";
+                String ref = request.getParameter("supprimer");
             try {
-                processRequest(request, response);
+                dao.deleteProduct(ref);
+                //request.getRequestDispatcher(jspView).forward(request, response);
             } catch (SQLException ex) {
                 Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
             }

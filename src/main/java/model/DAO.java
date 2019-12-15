@@ -75,6 +75,20 @@ public class DAO {
 		return result;
 	}
         
+        public void deleteProduct(String reference)throws SQLException{
+            String sql ="DELETE FROM PRODUIT WHERE REFERENCE=?";
+            /*try (Connection connection = myDataSource.getConnection(); 
+		    PreparedStatement stmt = connection.prepareStatement(sql)) {
+                    stmt.setInt(1,reference);
+                    stmt.executeQuery();
+                    stmt.close();
+            }catch(SQLException e){
+                throw new SQLException("Erreur : "+e.getMessage());
+            }*/
+            out.println("Référence: ");
+            out.println(reference);
+        }
+        
         public void updateClient(String user,String code,String societe,String contact,String fonction,String adresse,String ville,String region,String code_postal,String pays,String telephone,String fax) throws SQLException{
             String sql = "UPDATE CLIENT SET CODE=?, SOCIETE=?, CONTACT=?, FONCTION=?,"
                     +" ADRESSE=?, VILLE=?, REGION=?, CODE_POSTAL=?, PAYS=?, TELEPHONE=?,FAX=?"

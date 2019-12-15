@@ -30,14 +30,16 @@
             <button type="submit" class="btn btn-primary  m-4">Connexion</button>
             
         </form>
-               
+            
         </div>
         <div class="container-fluid  align-items-center text-center ">
             <p class="font-weight-bold text-danger m-4">${message}</p>
         </div> 
-        
-    </body>
-
-        <!--<h3>Il y a actuellement ${applicationScope.numberConnected} utilisateurs connectés</h3> -->
+        <footer>
+            <div align="center">
+                <h5>Si vous ne souhaitez pas vous authentifier, </br>vous pouvez tout de même visualiser nos produits</h5>
+                <a href="Produits.jsp" class="btn btn-primary  m-4">Mode Visiteur</a>
+            </div>
+        </footer>
     </body>
 </html>

@@ -6,8 +6,9 @@
 <html>
     <head>
         <title>Graphiques des ventes</title>
-        <link rel="stylesheet" href="AdminCSS.css" />
+        <link rel="stylesheet" href="Client.css" />
         <link rel="icon" type="image/png" href="Pictures/favicon_admin.ico" />
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script src="https://kit.fontawesome.com/dd6a857052.js" crossorigin="anonymous"></script>
         <script>

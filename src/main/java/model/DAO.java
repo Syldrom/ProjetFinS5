@@ -7,8 +7,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sql.DataSource;
@@ -46,6 +48,32 @@ public class DAO {
         * 
         * @throws java.sql.SQLException
 	*/
+        
+        public Map<String, Float> PriceCategoryEntity(String dateDebut, String dateFin) throws Exception {
+                Map<String, Float> result = new HashMap<>();
+                if (dateDebut == null) dateDebut="2010-05-24";
+                if (dateFin == null) dateFin="2012-05-24";
+		String sql = "SELECT SUM(QUANTITE*PRIX_UNITAIRE) AS TOTAL,CATEGORIE.LIBELLE\n" +
+                                "FROM PRODUIT INNER JOIN LIGNE ON LIGNE.PRODUIT = PRODUIT.REFERENCE\n" +
+                                "INNER JOIN CATEGORIE ON PRODUIT.CATEGORIE=CATEGORIE.CODE\n" +
+                                "INNER JOIN COMMANDE ON LIGNE.COMMANDE=COMMANDE.NUMERO\n" +
+                                "WHERE COMMANDE.SAISIE_LE BETWEEN ? AND ? " +
+                                "GROUP BY CATEGORIE.CODE ORDER BY TOTAL";
+		try (Connection connection = myDataSource.getConnection();
+                    PreparedStatement stmt = connection.prepareStatement(sql);
+                   ) {  stmt.setString(1,dateDebut);
+                        stmt.setString(2,dateFin);
+                        ResultSet rs = stmt.executeQuery();                         
+			while (rs.next()) {
+				// On récupère les champs nécessaires de l'enregistrement courant
+				String description = rs.getString("DESCRIPTION");
+				float prix = rs.getFloat("TOTAL");
+				// On l'ajoute à la liste des résultats
+				result.put(description, prix);
+			}
+		}
+		return result;
+	}
         
         public void updateClient(String user,String code,String societe,String contact,String fonction,String adresse,String ville,String region,String code_postal,String pays,String telephone,String fax) throws SQLException{
             String sql = "UPDATE CLIENT SET CODE=?, SOCIETE=?, CONTACT=?, FONCTION=?,"

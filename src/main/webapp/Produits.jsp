@@ -62,7 +62,7 @@
                                 </c:if>
                             </tr>
                         </thead>
-                        <c:forEach var="prod"items="${listProducts}">
+                        <c:forEach var="prod"items="${listProducts}" >
                             
                             <c:remove var="disabledTable"></c:remove>
                             <c:remove var="disabledItem"></c:remove>

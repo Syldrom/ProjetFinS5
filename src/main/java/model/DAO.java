@@ -224,9 +224,13 @@ public class DAO {
                     return result;
 		}
         }
-        public List<Order> allOrders() throws SQLException {
-                List<Order> result = new LinkedList<>();
                 
+        public int nbClientOrders(String cli) throws SQLException {
+            return this.clientOrders(cli).size();
+        }
+        
+        public List<Order> allOrders() throws SQLException {
+                List<Order> result = new LinkedList<>();                
                 String sql = "SELECT * FROM COMMANDE";
                 try (Connection connection = myDataSource.getConnection(); 
 		     PreparedStatement stmt = connection.prepareStatement(sql)) {

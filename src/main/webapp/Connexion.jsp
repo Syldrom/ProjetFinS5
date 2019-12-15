@@ -27,18 +27,21 @@
                 <input type="password" class="form-control" name="password" placeholder="Password" required autofocus>
                 <small id="loginHelp" class="form-text text-muted text-left">Saisir votre code associé</small>
             </div>
-            <button type="submit" class="btn btn-primary  m-4">Connexion</button>
+            <button type="submit" class="btn btn-primary  m-4">Connexion</button>           
             
         </form>
             
         </div>
         <div class="container-fluid  align-items-center text-center ">
             <p class="font-weight-bold text-danger m-4">${message}</p>
-        </div> 
-        <footer>
-            <div align="center">
-                <h5>Si vous ne souhaitez pas vous authentifier, </br>vous pouvez tout de même visualiser nos produits</h5>
-                <a href="Produits.jsp" class="btn btn-primary  m-4">Mode Visiteur</a>
+        </div>
+
+        <footer class="footer">
+            <div class="container-fluid align-items-center text-center">
+                <div class="form-group">
+                    <p>Si vous ne souhaitez pas vous authentifier,</br>vous pouvez tout de même visualiser nos produits</p>           
+                    <a href="Produits.jsp" class="btn btn-outline-success  m-4">Accès Visiteur</a>
+                </div>
             </div>
         </footer>
     </body>

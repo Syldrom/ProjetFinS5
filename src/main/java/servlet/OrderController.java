@@ -44,11 +44,14 @@ public class OrderController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         DAO dao = new DAO(DataSourceFactory.getDataSource());
         HttpSession session = request.getSession();
-        List<Order> listOrders ; 
+        List<Order> listOrders ;
+        int nbOrders = 0;
         String password = null;
 		try {
                         password = (String) session.getAttribute("password");
                         listOrders = dao.clientOrders(password);
+                        nbOrders = dao.nbClientOrders(password);
+                        request.setAttribute("nbOrders",nbOrders);
                         request.setAttribute("listOrders",listOrders);
                         request.getRequestDispatcher("Commandes.jsp").forward(request, response);
                         

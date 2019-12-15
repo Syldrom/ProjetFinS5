@@ -60,7 +60,7 @@
                             <c:remove var="disabledTable"></c:remove>
                             <c:remove var="disabledItem"></c:remove>
                             <c:set var="addItem" value="Ajouter au Panier"></c:set>
-                            <c:if test="${prod.stock==0}">
+                            <c:if test="${prod.stock eq 0}">
                                 <c:set var="disabledTable" value="table-secondary"></c:set>
                                 <c:set var="addItem" value="Épuisé"></c:set>
                                 <c:set var="disabledItem" value="disabled"></c:set> 

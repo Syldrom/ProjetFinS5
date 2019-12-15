@@ -82,8 +82,17 @@
                                     </c:if>
                                 </tr>
                             </thead>
+  
                             <c:forEach var="prod" items="${listProducts}">
-                                <tr>
+                                <c:remove var="disabledTable"></c:remove>
+                                  <c:remove var="disabledItem"></c:remove>
+                                  <c:set var="addItem" value="Ajouter au Panier"></c:set>
+                                  <c:if test="${prod.stock eq 0}">
+                                      <c:set var="disabledTable" value="table-secondary"></c:set>
+                                      <c:set var="addItem" value="Épuisé"></c:set>
+                                      <c:set var="disabledItem" value="disabled"></c:set> 
+                                  </c:if>                                 
+                                <tr class="${disabledTable}">
                                     <td>${prod.ref}</td>
                                     <td>${prod.name}</td>
                                     <td>${prod.fournisseur}</td>

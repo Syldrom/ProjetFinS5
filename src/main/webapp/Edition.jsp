@@ -3,11 +3,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="EditionController"/>
 <!DOCTYPE html>
-<sql:setDataSource 
-	driver="org.apache.derby.jdbc.ClientDriver"
-	url="jdbc:derby://localhost:1527/comptoirs"
-	user="app" password="app"
-/>
+
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -45,9 +41,9 @@
             <!----------DONNEES---------->
             
             <div class="container ">
-                <div class=" justify-content-center align-items-center m-5 p-auto">
-                    <form class="form col-auto m-4" action="EditionController" id="edit-form" method="POST" >
-                         <div class="form-row">
+                <div  class=" justify-content-center align-items-center m-5 p-auto">
+                    <form  class=" form col-auto m-4" action="EditionController" id="edit-form" method="POST" >
+                         <div class="form-row ">
                             <div class="form-group col-md-3">
                             <label>Contact</label>
                             <input type="text" class="form-control required" placeholder="Contact"  name="contact" value="${client.getContact()}"/>

@@ -19,11 +19,16 @@
                 $("#ddmenu").load("Menu.html");
             });
         </script>
+        <script>
+            $( document ).ready(function() {
+            console.log( "ready!" );
+            $("#header").load("Header.html");
+            });
+        </script>
     </head>
     <body>
         
-        <div class="header">
-            <h1>Bienvenue sur Amatoz</h1>
+        <div class="header" id="header">
         </div>
         <div class="topnav" id="ddmenu">
             <a class="active" href="Produits.jsp">Produits</a>
@@ -40,8 +45,8 @@
                                 <!--<th>Categorie</th>-->
                                 <th scope="col">Quantité par unité</th>
                                 <th scope="col">Prix unitaire</th>
-                                <th scope="col">Stock</th>
-                                <!--<th>Commandées</th>
+                                <!--<th scope="col">Stock</th>
+                                <th>Commandées</th>
                                 <th>Réappro</th>
                                 <th>Indisponible</th>-->
                                 <th scope="col">Quantité</th>
@@ -64,7 +69,7 @@
                                     <td>${prod.fournisseur}</td>
                                     <td>${prod.quantity}</td>
                                     <td>${prod.price}</td>
-                                    <td>${prod.stock}</td>
+                                    <!--<td>${prod.stock}</td>-->
                                     <td><input type="number" name="qte" min="0" max="${prod.stock}" ${disabledItem}></td>
                                     <td><button type="button" ${disabledItem}>${addItem}</button></td>
                                 </tr>

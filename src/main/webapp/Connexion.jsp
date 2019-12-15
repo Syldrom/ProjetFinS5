@@ -14,19 +14,19 @@
         <script src="https://kit.fontawesome.com/dd6a857052.js" crossorigin="anonymous"></script>
     </head>
     <body class="container-fluid mt-5">
-        <h1 class="h3 text-center">Connexion for Amatoz</h1>
+        <h1 class="h3 font-weight-bold  text-center">Connexion for Amatoz</h1>
         <div class="d-flex justify-content-center align-items-center container text-center mr-ml-4">
         <form action ="ConnectionController" method="POST" class="form-signin col-auto m-4 w-25">
             
-            <div class="form-group">
+            <div class="form-group mt-4">
                 <input type="text" class="form-control" name="login" placeholder="Login" required autofocus>
                 <small id="loginHelp" class="form-text text-muted text-left">Rentrez votre nom complet (contact) </small>
             </div>
-            <div class="form-group">
+            <div class="form-group mt-4">
                 <input type="password" class="form-control" name="password" placeholder="Password" required autofocus>
                 <small id="loginHelp" class="form-text text-muted text-left">Saisir votre code associé</small>
             </div>
-            <button type="submit" class="btn btn-primary">Connexion</button>
+            <button type="submit" class="btn btn-primary  m-4">Connexion</button>
             
         </form>
                

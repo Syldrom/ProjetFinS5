@@ -17,6 +17,12 @@
                 $("#ddmenu").load("Menu.html");
             });
         </script>
+        <script>
+            $( document ).ready(function() {
+            console.log( "ready!" );
+            $("#header").load("Header.html");
+            });
+        </script>
     </head>
     <body>   
 

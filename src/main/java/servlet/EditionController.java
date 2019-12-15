@@ -98,8 +98,8 @@ public class EditionController extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {                
-
-                String jspView="Edition.jsp";
+                request.setCharacterEncoding("UTF-8");
+                String jspView="Produits.jsp";
                 String user = request.getParameter("contact");
                 String code =request.getParameter("code");
                 String societe = request.getParameter("societe");               
@@ -116,7 +116,7 @@ public class EditionController extends HttpServlet {
                 DAO dao = new DAO(DataSourceFactory.getDataSource());
         try {            
             dao.updateClient(user, code, societe, contact, fonction, adresse, ville, region, code_postal, pays, telephone, fax);            
-            request.getRequestDispatcher("Produits.jsp").forward(request, response);
+            request.getRequestDispatcher(jspView).forward(request, response);
         } catch (Exception ex) {
             Logger.getLogger(EditionController.class.getName()).log(Level.SEVERE, null, ex);
         }

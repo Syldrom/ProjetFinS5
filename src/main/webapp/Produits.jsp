@@ -17,12 +17,8 @@
             $( document ).ready(function() {
                 console.log( "ready!" );
                 $("#ddmenu").load("Menu.html");
-            });
-        </script>
-        <script>
-            $( document ).ready(function() {
-            console.log( "ready!" );
-            $("#header").load("Header.html");
+                $("#ddmenu2").load("Unconnected-Menu.html");
+                $("#header").load("Header.html");
             });
         </script>
     </head>
@@ -30,10 +26,14 @@
         
         <div class="header" id="header">
         </div>
-        <div class="topnav" id="ddmenu">
-            <a class="active" href="Produits.jsp">Produits</a>
+        <c:if test="${not empty login}">
+            <div class="topnav" id="ddmenu">
             </div>
-        </div> 
+        </c:if>
+        <c:if test="${empty login}">
+            <div class="topnav" id="ddmenu2">
+            </div>
+        </c:if>
         
                 <div id="products"></div>
                     <table class="table text-center">
@@ -49,8 +49,10 @@
                                 <th>Commandées</th>
                                 <th>Réappro</th>
                                 <th>Indisponible</th>-->
-                                <th scope="col">Quantité</th>
-                                <th scope="col">Panier</th>
+                                <c:if test="${not empty login}">
+                                    <th scope="col">Quantité</th>
+                                    <th scope="col">Panier</th>
+                                </c:if>
                             </tr>
                         </thead>
                         <c:forEach var="prod"items="${listProducts}">
@@ -70,8 +72,10 @@
                                     <td>${prod.quantity}</td>
                                     <td>${prod.price}</td>
                                     <!--<td>${prod.stock}</td>-->
-                                    <td><input type="number" name="qte" min="0" max="${prod.stock}" ${disabledItem}></td>
-                                    <td><button type="button" ${disabledItem}>${addItem}</button></td>
+                                    <c:if test="${not empty login}">
+                                        <td><input type="number" name="qte" min="0" max="${prod.stock}" ${disabledItem}></td>
+                                        <td><button type="button" ${disabledItem}>${addItem}</button></td>
+                                    </c:if>
                                 </tr>
                             </c:forEach>
                                 <!--<td>${prod.unites_commandees}</td>

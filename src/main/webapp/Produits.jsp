@@ -35,6 +35,7 @@
             </div>
         </c:if>
         
+        
                 <div id="products"></div>
                     <table class="table text-center">
                         <thead>
@@ -45,10 +46,11 @@
                                 <!--<th>Categorie</th>-->
                                 <th scope="col">Quantité par unité</th>
                                 <th scope="col">Prix unitaire</th>
-                                <!--<th scope="col">Stock</th>
-                                <th>Commandées</th>
-                                <th>Réappro</th>
-                                <th>Indisponible</th>-->
+                                <c:if test="${login eq 'Admin'}">
+                                <th scope="col">Commandées</th>
+                                <th scope="col">Stock</th>
+                                <th scope="col">Réappro</th>
+                                </c:if>
                                 <c:if test="${not empty login}">
                                     <th scope="col">Quantité</th>
                                     <th scope="col">Panier</th>
@@ -71,16 +73,19 @@
                                     <td>${prod.fournisseur}</td>
                                     <td>${prod.quantity}</td>
                                     <td>${prod.price}</td>
-                                    <!--<td>${prod.stock}</td>-->
+                                    <c:if test="${login eq 'Admin'}">
+                                    <td>${prod.getUC()}</td>
+                                    <td>${prod.getStock()}</td>
+                                    <td>${prod.getReappro()}</td>
+                                    </c:if>
                                     <c:if test="${not empty login}">
                                         <td><input type="number" name="qte" min="0" max="${prod.stock}" ${disabledItem}></td>
                                         <td><button type="button" ${disabledItem}>${addItem}</button></td>
                                     </c:if>
                                 </tr>
                             </c:forEach>
-                                <!--<td>${prod.unites_commandees}</td>
-                                    <td>${prod.niveau_de_reappro}</td>
-                                    <td>${prod.disponibilite}</td>-->
+
+
                         </table>
                 
 

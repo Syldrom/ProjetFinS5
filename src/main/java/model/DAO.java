@@ -51,9 +51,9 @@ public class DAO {
         
         public Map<String, Float> PriceCategoryEntity(String dateDebut, String dateFin) throws Exception {
                 Map<String, Float> result = new HashMap<>();
-                if (dateDebut == null) dateDebut="2010-05-24";
-                if (dateFin == null) dateFin="2012-05-24";
-		String sql = "SELECT SUM(QUANTITE*PRIX_UNITAIRE) AS TOTAL,CATEGORIE.LIBELLE\n" +
+                if (dateDebut == null) dateDebut="1994-08-04";
+                if (dateFin == null) dateFin="1996-06-05";
+		String sql = "SELECT SUM(QUANTITE*PRIX_UNITAIRE) AS TOTAL,LIBELLE\n" +
                                 "FROM PRODUIT INNER JOIN LIGNE ON LIGNE.PRODUIT = PRODUIT.REFERENCE\n" +
                                 "INNER JOIN CATEGORIE ON PRODUIT.CATEGORIE=CATEGORIE.CODE\n" +
                                 "INNER JOIN COMMANDE ON LIGNE.COMMANDE=COMMANDE.NUMERO\n" +

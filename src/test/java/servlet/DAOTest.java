@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import javax.sql.DataSource;
 import model.Category;
 import model.Client;
@@ -138,5 +139,14 @@ public class DAOTest {
        int num = 10248;
        assertEquals((int)numeros.get(0),num);
     }
-
+   @Test
+   public void priceCategoryEntityTest() throws SQLException, Exception {
+       String start = "1994-08-04";
+       String end ="1996-06-05";
+       String categorie ="Boissons";
+       Map<String,Float> res = dao.PriceCategoryEntity(start, end);
+       Float price = res.get(categorie);
+       Float boissons_price = 1546171.0f;
+       assertEquals(price,boissons_price);
+   }
   }

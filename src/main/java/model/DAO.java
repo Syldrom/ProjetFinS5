@@ -99,10 +99,10 @@ public class DAO {
                         ResultSet rs = stmt.executeQuery();                         
 			while (rs.next()) {
 				// On récupère les champs nécessaires de l'enregistrement courant
-				String description = rs.getString("LIBELLE");
+				String libelle = rs.getString("LIBELLE");
 				float prix = rs.getFloat("TOTAL");
 				// On l'ajoute à la liste des résultats
-				result.put(description, prix);
+				result.put(libelle, prix);
 			}
 		}
 		return result;

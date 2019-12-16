@@ -30,7 +30,7 @@
 			var options = {
 				title: 'Ventes par catégorie',
 				is3D: true,
-                                width:400,
+                                width:500,
                                 height:400
 			};
 			var chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -63,10 +63,11 @@
 			var options = {
 				title: 'Ventes par localisation',
 				is3D: true,
-                                width:400,
+                                width:500,
                                 height:400
 			};
-			var chart2 = new google.visualization.PieChart(document.getElementById('piechart2'));
+                        //var chart2 = new google.visualization.PieChart(document.getElementById('piechart2'));
+			var chart2 = new google.visualization.GeoChart(document.getElementById('piechart2'));
 			chart2.draw(data, options);
 		}
 
@@ -97,7 +98,7 @@
 			var options = {
 				title: 'Ventes par nom',
 				is3D: true,
-                                width:400,
+                                width:500,
                                 height:400
 			};
                         var chart3 = new google.visualization.PieChart(document.getElementById('piechart3'));

@@ -35,6 +35,7 @@ public class ServletGraphiques extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, Exception {
+            response.setContentType("text/html;charset=UTF-8");
             DAO dao = new DAO(DataSourceFactory.getDataSource());
 		// Properties est une Map<clé, valeur> pratique pour générer du JSON
 		Properties resultat = new Properties();

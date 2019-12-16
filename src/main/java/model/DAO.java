@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,11 +44,43 @@ public class DAO {
 		this.myDataSource = dataSource;
 	}
 
-	/**
-	 * Contenu de la table PRODUIT
-        * 
-        * @throws java.sql.SQLException
-	*/
+        
+        public Map<String, Float> PriceLocalisationEntity(String dateDebut, String dateFin) throws Exception {
+                Map<String, Float> result = new HashMap<>();
+                if (dateDebut == null) dateDebut="1994-08-04";
+                if (dateFin == null) dateFin="1996-06-05";
+		// Une requête SQL paramétrée
+		/*String sql = "SELECT SUM(QUANTITY*PRIX_UNITAIRE) AS TOTAL,COMMANDE.PAYS_LIVRAISON \n" +
+                    "FROM PRODUIT INNER JOIN PURCHASE_ORDER ON PRODUCT.PRODUCT_ID = PURCHASE_ORDER.PRODUCT_ID \n" +
+                    "INNER JOIN CUSTOMER ON CUSTOMER.CUSTOMER_ID = PURCHASE_ORDER.CUSTOMER_ID\n" +
+                    "WHERE SALES_DATE BETWEEN ? AND ? " +
+                    "GROUP BY CUSTOMER.ZIP ORDER BY TOTAL";*/
+                String sql = "SELECT SUM(QUANTITE*PRIX_UNITAIRE) AS TOTAL,COMMANDE.PAYS_LIVRAISON\n" +
+                                "FROM PRODUIT INNER JOIN LIGNE ON LIGNE.PRODUIT = PRODUIT.REFERENCE\n" +
+                                "INNER JOIN CATEGORIE ON PRODUIT.CATEGORIE=CATEGORIE.CODE\n" +
+                                "INNER JOIN COMMANDE ON LIGNE.COMMANDE=COMMANDE.NUMERO\n" +
+                                "WHERE COMMANDE.SAISIE_LE BETWEEN ? AND ? " +
+                                "GROUP BY COMMANDE.PAYS_LIVRAISON ORDER BY TOTAL";
+                
+                Locale countryFrance = new Locale.Builder().setRegion("FR"/*Japan*/).build();
+                Locale langEnglish  = new Locale.Builder().setLanguage("en"/*English*/).build();
+                
+		try (Connection connection = myDataSource.getConnection();
+                    PreparedStatement stmt = connection.prepareStatement(sql);
+                   ) {  stmt.setString(1,dateDebut);
+                        stmt.setString(2,dateFin);
+                        ResultSet rs = stmt.executeQuery();                         
+			while (rs.next()) {
+				// On récupère les champs nécessaires de l'enregistrement courant
+                                countryFrance.getDisplayCountry(langEnglish);
+				String pays = rs.getString("PAYS_LIVRAISON");
+				float prix = rs.getFloat("TOTAL");
+				// On l'ajoute à la liste des résultats
+				result.put(pays, prix);
+			}
+		}
+		return result;
+	}
         
         public Map<String, Float> PriceCategoryEntity(String dateDebut, String dateFin) throws Exception {
                 Map<String, Float> result = new HashMap<>();
@@ -58,7 +91,7 @@ public class DAO {
                                 "INNER JOIN CATEGORIE ON PRODUIT.CATEGORIE=CATEGORIE.CODE\n" +
                                 "INNER JOIN COMMANDE ON LIGNE.COMMANDE=COMMANDE.NUMERO\n" +
                                 "WHERE COMMANDE.SAISIE_LE BETWEEN ? AND ? " +
-                                "GROUP BY CATEGORIE.CODE ORDER BY TOTAL";
+                                "GROUP BY CATEGORIE.LIBELLE ORDER BY TOTAL";
 		try (Connection connection = myDataSource.getConnection();
                     PreparedStatement stmt = connection.prepareStatement(sql);
                    ) {  stmt.setString(1,dateDebut);
@@ -66,7 +99,7 @@ public class DAO {
                         ResultSet rs = stmt.executeQuery();                         
 			while (rs.next()) {
 				// On récupère les champs nécessaires de l'enregistrement courant
-				String description = rs.getString("DESCRIPTION");
+				String description = rs.getString("LIBELLE");
 				float prix = rs.getFloat("TOTAL");
 				// On l'ajoute à la liste des résultats
 				result.put(description, prix);

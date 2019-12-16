@@ -22,6 +22,7 @@
                 $("#ddmenuAdmin").load("AdminMenu.html");
             });
         </script>
+        <c:set var="logAdmin" value="Admin"></c:set>
     </head>
     <body>   
         
@@ -29,7 +30,7 @@
         </div>
         <!----------MENU---------->
             
-        <c:if test="${not empty login and login ne 'Admin'}">
+        <c:if test="${not empty login and login ne logAdmin}">
             <div class="topnav" id="ddmenu">
             </div>
         </c:if>
@@ -37,30 +38,27 @@
             <div class="topnav" id="ddmenu2">
             </div>
         </c:if>
-        <c:if test="${login eq 'Admin'}">
+        <c:if test="${login eq logAdmin}">
             <div class="topnav" id="ddmenuAdmin">
             </div>
         </c:if>
-            
-        
+  
            <!----------SELECTEUR---------->
-        <div class="container-fluid text-center  ">      
-            <form action="CategoryController" class="form col-auto mt-4 w-25">
+        <div class="container-fluid text-center mt-5  ">      
+            <form action="CategoryController" class="form  mt-4 w-25">
                 <div class="d-flex justify-content-center  container">
-                    <select class="custom-select" name='categorie' id='categorie' onchange='this.form.submit()' >
+                    <select class="custom-select w-75" name='categorie' id='categorie' onchange='this.form.submit()' >
                         <c:forEach var="cat" items="${listCategories}">
                             <option value='${cat.code}'
                                 <c:if test="${cat.code eq categorie}">
                                     selected <c:set var="categorieDesc" value="${cat.description}"></c:set>
                                 </c:if>
                             >${cat.libelle}</option>                                                
-                        </c:forEach>
-                                
+                        </c:forEach>                                
                     </select>   
                 </div>
             </form>
-            <label class="h3  mb-4 mt-auto">${categorieDesc}</label> 
-    
+            <label class="h3 mt-2 mb-5">${categorieDesc}</label>     
         </div>
         
             <!----------PRODUITS---------->
@@ -77,13 +75,17 @@
                                     <!--<th>Categorie</th>-->
                                     <th scope="col">Quantité par unité</th>
                                     <th scope="col">Prix unitaire</th>
-                                    <th scope="col">Stock</th>
+                                    <th scope="col">Commandés</th>
                                     <!--<th scope="col">Commandées</th>
                                     <th scope="col">Réappro</th>
                                     <th scope="col">Indisponible</th>-->
-                                    <c:if test="${not empty login}">
+                                    <c:if test="${not empty login and login ne logAdmin}">
                                         <th scope="col">Quantité</th>
                                         <th scope="col">Panier</th>
+                                    </c:if>
+                                    <c:if test="${login eq logAdmin}">
+                                        <th scope="col">Stock</th>
+                                        <th scope="col">Réappro</th>
                                     </c:if>
                                 </tr>
                             </thead>
@@ -103,11 +105,17 @@
                                     <td>${prod.fournisseur}</td>
                                     <td>${prod.quantity}</td>
                                     <td>${prod.price}</td>
-                                    <td>${prod.stock}</td>
-                                    <c:if test="${not empty login}">
+                                    <td>${prod.getUC()}</td>
+                                    
+                                    <c:if test="${not empty login and login ne logAdmin}">
                                         <td><input type="number" name="qte" min="0" max="${prod.stock}" ${disabledItem}></td>
                                         <td><button type="button" ${disabledItem}>${addItem}</button></td>
                                     </c:if>
+                                            <c:if test ="${login eq logAdmin}">
+                                                <td>${prod.getStock()}</td>
+                                                <td>${prod.getReappro()}</td>
+                                            </c:if>
+                                        
                                 </tr>
                             </c:forEach>
                                 <!--<td>${prod.unites_commandees}</td>

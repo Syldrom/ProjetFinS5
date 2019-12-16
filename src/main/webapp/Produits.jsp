@@ -62,9 +62,9 @@
                                         <th scope="col">Panier</th>
                                     </c:if>
                                 </c:if>
-                                <c:if test="${login eq 'Admin'}">
+                                <!--<c:if test="${login eq 'Admin'}">
                                     <th scope="col">Supprimer</th>
-                                </c:if>
+                                </c:if>-->
                             </tr>
                         </thead>
                         <c:forEach var="prod" items="${listProducts}">
@@ -93,11 +93,11 @@
                                             <td><input type="number" name="qte" min="0" max="${prod.stock}" ${disabledItem}></td>
                                             <td><button type="button" ${disabledItem}>${addItem}</button></td>
                                         </c:if>
-                                        <c:if test="${login eq 'Admin'}">
+                                        <!--<c:if test="${login eq 'Admin'}">
                                             <td><form  action="ProductController" id="supress" method="POST" >
                                                 <button type="submit" name="supprimer" value="${ref}" >Supprimer définitivement</button>
                                             </form></td>
-                                        </c:if>
+                                        </c:if>-->
                                     </c:if>
                                 </tr>
                             </c:forEach>

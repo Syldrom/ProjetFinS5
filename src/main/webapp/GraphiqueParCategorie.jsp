@@ -14,7 +14,7 @@
         <script>
             $( document ).ready(function() {
                 console.log( "ready!" );
-                $("#ddmenu").load("Menu.html");
+                $("#ddmenu").load("AdminMenu.html");
             });
         </script>
 	<script type="text/javascript">
@@ -135,7 +135,7 @@
     <body>
         <div class="topnav" id="ddmenu">
         </div> 
-        <h1> Bienvenue ${userAdmin} </h1>
+        <h1> Bienvenue ${login} </h1>
         <form action="ServletGraphiques" method="POST">   
         Date Début : <input type="date" name="dateDebut"></br>
         Date fin : <input type="date" name="datefin"></br>

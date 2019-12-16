@@ -19,6 +19,7 @@
                 $("#ddmenu").load("Menu.html");
                 $("#ddmenu2").load("Unconnected-Menu.html");
                 $("#header").load("Header.html");
+                $("#ddmenuAdmin").load("AdminMenu.html");
             });
         </script>
     </head>
@@ -28,12 +29,16 @@
         </div>
         <!----------MENU---------->
             
-        <c:if test="${not empty login}">
+        <c:if test="${not empty login and login ne 'Admin'}">
             <div class="topnav" id="ddmenu">
             </div>
         </c:if>
         <c:if test="${empty login}">
             <div class="topnav" id="ddmenu2">
+            </div>
+        </c:if>
+        <c:if test="${login eq 'Admin'}">
+            <div class="topnav" id="ddmenuAdmin">
             </div>
         </c:if>
             

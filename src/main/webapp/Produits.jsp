@@ -18,6 +18,7 @@
                 console.log( "ready!" );
                 $("#ddmenu").load("Menu.html");
                 $("#ddmenu2").load("Unconnected-Menu.html");
+                $("#ddmenu3").load("AdminMenu.html");
                 $("#header").load("Header.html");
             });
         </script>
@@ -26,12 +27,16 @@
         
         <div class="header" id="header">
         </div>
-        <c:if test="${not empty login}">
+        <c:if test="${not empty login and login ne 'Admin'}">
             <div class="topnav" id="ddmenu">
             </div>
         </c:if>
         <c:if test="${empty login}">
             <div class="topnav" id="ddmenu2">
+            </div>
+        </c:if>
+        <c:if test="${login eq 'Admin'}">
+            <div class="topnav" id="ddmenu3">
             </div>
         </c:if>
         

@@ -45,6 +45,33 @@ public class DAO {
 	}
 
         
+        public Map<String, Float> TurnoverClient(String dateDebut, String dateFin) throws Exception {
+                Map<String, Float> result = new HashMap<>();
+                if (dateDebut == null) dateDebut="1994-08-04";
+                if (dateFin == null) dateFin="1996-06-05";
+		String sql = "SELECT SUM(QUANTITE*PRIX_UNITAIRE) AS TOTAL,CLIENT.SOCIETE\n" +
+                                "FROM PRODUIT INNER JOIN LIGNE ON LIGNE.PRODUIT = PRODUIT.REFERENCE\n" +
+                                "INNER JOIN CATEGORIE ON PRODUIT.CATEGORIE=CATEGORIE.CODE\n" +
+                                "INNER JOIN COMMANDE ON LIGNE.COMMANDE=COMMANDE.NUMERO\n" +
+                                "INNER JOIN CLIENT ON COMMANDE.CLIENT=CLIENT.CODE\n"+
+                                "WHERE COMMANDE.SAISIE_LE BETWEEN ? AND ? " +
+                                "GROUP BY CLIENT.SOCIETE ORDER BY TOTAL";
+		try (Connection connection = myDataSource.getConnection();
+                    PreparedStatement stmt = connection.prepareStatement(sql);
+                   ) {  stmt.setString(1,dateDebut);
+                        stmt.setString(2,dateFin);
+                        ResultSet rs = stmt.executeQuery();                         
+			while (rs.next()) {
+				// On récupère les champs nécessaires de l'enregistrement courant
+				String nom = rs.getString("SOCIETE");
+				float prix = rs.getFloat("TOTAL");
+				// On l'ajoute à la liste des résultats
+				result.put(nom, prix);
+			}
+		}
+		return result;
+	}
+        
         public Map<String, Float> PriceLocalisationEntity(String dateDebut, String dateFin) throws Exception {
                 Map<String, Float> result = new HashMap<>();
                 if (dateDebut == null) dateDebut="1994-08-04";

@@ -18,7 +18,7 @@
             });
         </script>
 	<script type="text/javascript">
-		google.load("visualization", "1", {packages: ["corechart"]});
+		google.load("visualization", "1", {packages: ["corechart"], 'language': 'fr'});
 
 		// Après le chargement de la page, on fait l'appel AJAX
 		google.setOnLoadCallback(doAjax);
@@ -66,8 +66,8 @@
                                 width:500,
                                 height:400
 			};
-                        //var chart2 = new google.visualization.PieChart(document.getElementById('piechart2'));
-			var chart2 = new google.visualization.GeoChart(document.getElementById('piechart2'));
+                        var chart2 = new google.visualization.PieChart(document.getElementById('piechart2'));
+			//var chart2 = new google.visualization.GeoChart(document.getElementById('piechart2'));
 			chart2.draw(data, options);
 		}
 

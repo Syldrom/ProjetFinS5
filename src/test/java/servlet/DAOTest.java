@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import javax.sql.DataSource;
+import model.Client;
 import model.DAO;
 import org.junit.Before;
 import org.junit.Test;
@@ -66,6 +67,21 @@ public class DAOTest {
         String contact = "Maria Anders";
         String code = "ALFKI";
         assertEquals( dao.connexionClient(contact,code) , true );
+    }
+    @Test
+    public void updateClientTest() throws SQLException {
+        String contact = "Maria Anders";
+        String code = "ALFKI";
+        
+        String région ="Brandebourg";
+        String telephone ="030-0909090";
+
+        
+
+        dao.updateClient(contact,"ALFKI","Alfreds Futterkiste","Maria Anders","Représentant(e)","Obere Str. 57","Berlin",région,"12209","Allemagne",telephone,"030-0076545");
+        Client client = dao.getClientInfos(contact,code);
+        assertEquals(client.getRegion(),région);
+        assertEquals(client.getTelephone(),telephone);
     }
    
 }

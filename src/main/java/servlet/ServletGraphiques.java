@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.DAO;
 import com.google.gson.*;
+import static java.lang.System.out;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.Properties;
@@ -40,9 +41,12 @@ public class ServletGraphiques extends HttpServlet {
 		// Properties est une Map<clé, valeur> pratique pour générer du JSON
 		Properties resultat = new Properties();
 		try {
+                        request.setCharacterEncoding("UTF-8");
                         String dateDebut = request.getParameter("dateDebut");
                         String datefin = request.getParameter("datefin");
-			resultat.put("records", dao.PriceCategoryEntity(dateDebut,datefin));
+			resultat.put("records1", dao.PriceCategoryEntity(dateDebut,datefin));
+                        resultat.put("records3", dao.TurnoverClient(dateDebut,datefin));
+                        resultat.put("records2", dao.PriceLocalisationEntity(dateDebut,datefin));
 		} catch (SQLException ex) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			resultat.put("records", Collections.EMPTY_LIST);
@@ -58,6 +62,8 @@ public class ServletGraphiques extends HttpServlet {
 			String gsonData = gson.toJson(resultat);
 			out.println(gsonData);
 		}
+                //response.sendRedirect("GraphiqueParCategorie.jsp");
+                //request.getRequestDispatcher("GraphiqueParCategorie.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -70,13 +76,21 @@ public class ServletGraphiques extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
+            
+            try {           
+                //processRequest(request, response);
+                request.setAttribute("dateDebut",request.getParameter("dateDebut"));
+                request.setAttribute("datefin",request.getParameter("datefin"));
+                request.getRequestDispatcher("GraphiqueParCategorie.jsp").forward(request, response);
+                
+               //response.sendRedirect("GraphiqueParCategorie.jsp");
         } catch (Exception ex) {
             Logger.getLogger(ServletGraphiques.class.getName()).log(Level.SEVERE, null, ex);
         }
+            
+        
     }
 
     /**
@@ -88,10 +102,12 @@ public class ServletGraphiques extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            //request.getRequestDispatcher("GraphiqueParCategorie.jsp").forward(request,response);
             processRequest(request, response);
+            //response.sendRedirect("GraphiqueParCategorie.jsp");
         } catch (Exception ex) {
             Logger.getLogger(ServletGraphiques.class.getName()).log(Level.SEVERE, null, ex);
         }
